@@ -116,7 +116,7 @@ const PaymentChange = () => {
           />
         </label>
 
-        <button className="rounded-md" type="submit">
+        <button className="rounded-md  p-2  bg-blue-400 text-white text-base" type="submit">
           Submit
         </button>
       </form>
