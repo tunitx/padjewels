@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Tag, Input, Space, Button } from "antd";
+import { Table, Tag, Input, Space, Button, Spin } from "antd";
 import _ from "lodash"; // Import lodash
 
 import { SearchOutlined } from "@ant-design/icons";
@@ -10,14 +10,17 @@ const Tables = () => {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       const res = await axios.get(`http://localhost:8081/api/v1/auth/getUser`);
       // console.log(res.data[0].firstname);
       setData(res.data);
+      setIsLoading(false);
     };
     // Debounce the fetchData function to delay continuous updates
-    const delayedFetchData = _.debounce(fetchData, 500); // Adjust delay time as needed (e.g., 500ms)
+    const delayedFetchData = _.debounce(fetchData, 0); // Adjust delay time as needed (e.g., 500ms)
 
     delayedFetchData(); // Call the debounced function
 
@@ -218,14 +221,16 @@ const Tables = () => {
 
   return (
     <div className="rounded-sm border border-stroke  px-5 pt-6 pb-2.5 text-black  shadow-default dark:border-strokedark dark:bg-boxdark dark:text-black sm:px-7.5 xl:pb-1">
-      <Table
-        key={dataWithSrNo.length} // Adding a stable key
-        className="text-black dark:text-black"
-        columns={columns}
-        dataSource={dataWithSrNo}
-        onChange={onChange}
-        scroll={{ x: true }}
-      />
+      {isLoading ? <Spin /> : ( // Conditionally render Spin based on isLoading state
+        <Table
+          key={dataWithSrNo.length} // Adding a stable key
+          className="text-black dark:text-black"
+          columns={columns}
+          dataSource={dataWithSrNo}
+          onChange={onChange}
+          scroll={{ x: true }}
+        />
+      )}
     </div>
   );
 };

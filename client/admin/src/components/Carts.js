@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Table, Button, Modal, List, Card } from "antd";
 import axios from "axios";
+import { GET_USER } from "../constants/Constants";
+import { GET_CART_DATA } from "../constants/Constants";
+import { GET_PRODUCT_DETAILS } from "../constants/Constants";
 
 const Carts = () => {
   const [userData, setUserData] = useState([]);
@@ -14,7 +17,7 @@ const Carts = () => {
   const fetchUserData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8081/api/v1/auth/getUser"
+        `${GET_USER}`
       );
       setUserData(response.data);
     } catch (error) {
@@ -25,14 +28,14 @@ const Carts = () => {
   const fetchCartData = async (userId) => {
     try {
       const response = await axios.get(
-        `http://localhost:8081/api/v1/carts/cart/${userId}`
+        `${GET_CART_DATA + userId}`
       );
       const cartItems = response.data.items;
 
       const productDetails = await Promise.all(
         cartItems.map(async (cartItem) => {
           const productResponse = await axios.get(
-            `http://localhost:8081/api/v1/product/getProd/${cartItem.productId._id}`
+            `${ GET_PRODUCT_DETAILS +  cartItem.productId._id}`
           );
           return { ...cartItem, productDetails: productResponse.data };
         })

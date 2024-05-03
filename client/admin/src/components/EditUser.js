@@ -8,7 +8,8 @@ import { useHistory } from "react-router-dom"; // Import useHistory instead of u
 
 import { Button, DatePicker, Input, Modal, Space, message } from "antd";
 import axios from "axios";
-
+import { UPDATE_USER } from "../constants/Constants";
+import { GET_USER } from "../constants/Constants";
 // import "./Modal.css";
 const EditUser = ({ data }) => {
   // const navigate = useNavigate();
@@ -54,11 +55,11 @@ const EditUser = ({ data }) => {
 
       // Make a PUT or PATCH request to update the user by ID
       const res = await axios.put(
-        `http://localhost:8081/api/v1/auth/updUser/${userId}`,
+        `${ UPDATE_USER + userId}`,
         updatedData
       );
       const updData = await axios.get(
-        `http://localhost:8081/api/v1/auth/getUser/${userId}`,
+        `${ GET_USER + '/' + userId}`,
         updatedData
       );
 

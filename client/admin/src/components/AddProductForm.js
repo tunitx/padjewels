@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Modal, Form, Input, Button, message, Select, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import axios from "axios";
+import { GET_PRODUCT_CATEGORIES } from "../constants/Constants";
+import { GET_CAT_WITH_SUBCAT } from "../constants/Constants";
+import { ADD_PRODUCT } from "../constants/Constants";
 
 const { Option } = Select;
 
@@ -27,7 +30,7 @@ const AddProductForm = ({ visible, onClose }) => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8081/api/v1/product/cat"
+        `${GET_PRODUCT_CATEGORIES}`
       );
       const items = response?.data;
       setCategories(items);
@@ -41,7 +44,7 @@ const AddProductForm = ({ visible, onClose }) => {
   const handleCategoryChange = async (category) => {
     try {
       const response = await axios.get(
-        `http://localhost:8081/api/v1/subcategories/subcategories/category/${category}`
+        `${GET_CAT_WITH_SUBCAT +  category}`
       );
       const items = response?.data.subcategories;
       setSubcategories(items);
@@ -67,7 +70,7 @@ const AddProductForm = ({ visible, onClose }) => {
 
       // Make API request to add product
       const response = await axios.post(
-        "http://localhost:8081/api/v1/product/addProduct",
+        `${ADD_PRODUCT}`,
         values,
         {
           headers: { "Content-Type": "multipart/form-data" },

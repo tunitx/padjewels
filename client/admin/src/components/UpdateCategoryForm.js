@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Modal, Form, Input, Button, message } from "antd";
 import axios from "axios";
+import { UPDATE_CAT } from "../constants/Constants";
 
 const UpdateCategoryForm = ({ visible, onClose, category, onUpdate }) => {
   const [form] = Form.useForm();
@@ -27,7 +28,7 @@ const UpdateCategoryForm = ({ visible, onClose, category, onUpdate }) => {
 
       // Make API request to update category
       const response = await axios.put(
-        `http://localhost:8081/api/v1/product/updateCat/${categoryId}`,
+        `${ UPDATE_CAT + categoryId}`,
         values
       );
 

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Form, Input, Button, message } from "antd";
 import axios from "axios";
+import { ADD_CATEGORY } from "../constants/Constants";
 
 const AddCategoryForm = ({ visible, onClose }) => {
   const [form] = Form.useForm();
@@ -11,7 +12,7 @@ const AddCategoryForm = ({ visible, onClose }) => {
 
       // Make API request to add product
       const response = await axios.post(
-        "http://localhost:8081/api/v1/product/addCat",
+        `${ADD_CATEGORY}`,
         values
       );
 

@@ -3,6 +3,7 @@
 import React, { useEffect } from "react";
 import { Modal, Form, Input, Button, message } from "antd";
 import axios from "axios";
+import { UPDATE_PRODUCT } from "../constants/Constants";
 
 const UpdateProductForm = ({ visible, onClose, product, onUpdate }) => {
   const [form] = Form.useForm();
@@ -28,7 +29,7 @@ const UpdateProductForm = ({ visible, onClose, product, onUpdate }) => {
 
       // Make API request to update product
       const response = await axios.put(
-        `http://localhost:8081/api/v1/product/updateProduct/${product._id}`,
+        `${ UPDATE_PRODUCT + product._id}`,
         values
       );
 
