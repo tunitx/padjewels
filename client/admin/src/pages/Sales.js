@@ -14,6 +14,7 @@ const SalesReportPage = () => {
   const [dateRange, setDateRange] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  
 
   useEffect(() => {
     const defaultStartDate = moment().subtract(1, "months");
@@ -21,24 +22,42 @@ const SalesReportPage = () => {
 
     setDateRange([defaultStartDate, defaultEndDate]);
 
-    fetchData(defaultStartDate, defaultEndDate);
+    // fetchData(defaultStartDate, defaultEndDate);
+    fetchOrders(defaultStartDate, defaultEndDate);
   }, []);
-
-  const fetchData = async (startDate, endDate) => {
+  const fetchOrders = async (startDate, endDate) => {
     try {
-      const apiUrl = "http://localhost:8081/api/v1/sales/salesreport";
-      const response = await fetch(
-        `${apiUrl}?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`
+      let apiUrl = `http://localhost:8081/api/v1/order/allorders/`;
+  
+      // Append date filters if available
+      if (startDate && endDate) {
+        apiUrl += `?startDate=${startDate.format(
+          "YYYY-MM-DD"
+        )}&endDate=${endDate.format("YYYY-MM-DD")}`;
+      }
+  
+      console.log("API URL:", apiUrl);
+  
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+      console.log("Filtered Data:", data);
+  
+      // Flatten the products array from each order into a single array
+      const products = data.orders.flatMap(order => 
+        Array.isArray(order.product) 
+          ? order.product.map(product => ({
+              productName: product.productName || 'Default Product Name',
+              productQuantity: product.productQuantity || 'Default Quantity',
+              amount: order.amount || 'Default Amount',
+              orderId: order.orderId,
+              createdAt: order.createdAt,
+             
+            }))
+          : []
       );
-      const result = await response.json();
-      console.log(result)
-      setData(result.productSales);
-
-      const total = result.productSales.reduce(
-        (acc, item) => acc + item.totalAmount,
-        0
-      );
-      setTotalAmount(total);
+      console.log(products)
+      setTotalAmount(products.amount)
+      setData(products);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -47,12 +66,12 @@ const SalesReportPage = () => {
   const handleDateChange = (dates) => {
     if (dates && dates.length === 2) {
       setDateRange(dates);
-      fetchData(dates[0], dates[1]);
+      fetchOrders(dates[0], dates[1]);
     } else {
       const defaultStartDate = moment().subtract(1, "months");
       const defaultEndDate = moment();
       setDateRange([defaultStartDate, defaultEndDate]);
-      fetchData(defaultStartDate, defaultEndDate);
+      fetchOrders(defaultStartDate, defaultEndDate);
     }
   };
 
@@ -61,22 +80,22 @@ const SalesReportPage = () => {
     pdf.text("Sales Report", 20, 20);
 
     const rows = data.map((item) => [
-      item.productId,
+      item.orderId,
       item.productName,
-      item.quantity,
-      `$${item.totalAmount.toFixed(2)}`,
-      moment(item.createdAt).format("DD-MMM-YYYY h:mm A"),
+      item.productQuantity,
+      item.createdAt,
+      item.amount,
     ]);
 
     pdf.autoTable({
       head: [
-        ["Product ID", "Product Name", "Quantity", "Total Amount", "Date"],
+        ["Order ID", "Product Name", "Quantity", "Created At"],
       ],
       body: rows,
     });
 
     pdf.text(
-      `Total Amount: $${totalAmount.toFixed(2)}`,
+      `Total Amount: $${totalAmount}`,
       20,
       pdf.autoTable.previous.finalY + 10
     );
@@ -86,9 +105,9 @@ const SalesReportPage = () => {
 
   const columns = [
     {
-      title: "Product ID",
-      dataIndex: "productId",
-      key: "productId",
+      title: "Order ID",
+      dataIndex: "orderId",
+      key: "orderId",
     },
     {
       title: "Product Name",
@@ -96,14 +115,14 @@ const SalesReportPage = () => {
       key: "productName",
     },
     {
-      title: "Quantity",
-      dataIndex: "quantity",
-      key: "quantity",
+      title: "Product Quantity",
+      dataIndex: "productQuantity",
+      key: "productQuantity",
     },
     {
       title: "Total Amount",
-      dataIndex: "totalAmount",
-      key: "totalAmount",
+      dataIndex: "amount",
+      key: "amount",
     },
     {
       title: "Created At",
@@ -124,7 +143,7 @@ const SalesReportPage = () => {
         />
         <Button
           type="primary"
-          onClick={() => fetchData(dateRange[0], dateRange[1])}
+          onClick={() => fetchOrders(dateRange[0], dateRange[1])}
           className="bg-blue-500"
           style={{ marginLeft: 10 }}
         >

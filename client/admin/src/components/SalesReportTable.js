@@ -4,26 +4,27 @@ import "antd/dist/antd.css";
 import moment from "moment";
 
 const SalesReportTable = ({ data }) => {
+  console.log(data)
   const columns = [
+    {
+      title: "Order ID",
+      dataIndex: "orderId",
+      key: "orderId",
+    },
     {
       title: "Product Name",
       dataIndex: "productName",
       key: "productName",
     },
     {
-      title: "Quantity",
-      dataIndex: "quantity",
-      key: "quantity",
+      title: "Product Quantity",
+      dataIndex: "productQuantity",
+      key: "productQuantity",
     },
     {
       title: "Total Amount",
-      dataIndex: "totalAmount",
-      key: "totalAmount",
-      render: (amount) => (
-        <span className="text-lg  text-black">
-          {`$${amount.toFixed(2)}`}
-        </span>
-      ),
+      dataIndex: "amount",
+      key: "amount",
     },
     {
       title: "Date",

@@ -10,16 +10,7 @@ const orderSchema = new mongoose.Schema(
       unique: true,
     },
     product: {
-      type: [
-        {
-          productId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Product",
-          },
-          count: Number,
-          price: Number,
-        },
-      ],
+      type: [],
       required: true,
     },
     user: {

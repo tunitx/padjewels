@@ -11,6 +11,7 @@ import User from "../models/user.schema.js";
 export const generateOrder = asyncHandler(async (req, res) => {
   const { products, user, address, phoneNumber, paymentOption, amount } =
     req.body;
+    console.log(req.body.products)
   // const userId = await User.findById(user);
   // if (!userId) {
   //   throw new CustomError("User not found.", 400);
@@ -64,6 +65,7 @@ export const generateOrder = asyncHandler(async (req, res) => {
         paymentOption: "ONLINE",
         orderId: orderId.id,
       });
+      console.log(paidOrder)
       res.status(200).json({
         success: true,
         paidOrder,
@@ -73,6 +75,7 @@ export const generateOrder = asyncHandler(async (req, res) => {
     if (!products || !user || !address || !phoneNumber || !amount) {
       throw new CustomError("Details for order are incomplete.", 400);
     } else {
+      console.log(products)
       const orderId = `COD-${uuidv4()}`;
       const unpaidOrder = await Order.create({
         address: address,
@@ -83,6 +86,7 @@ export const generateOrder = asyncHandler(async (req, res) => {
         paymentOption: "COD",
         orderId: orderId,
       });
+      console.log(unpaidOrder)
       res.status(200).json({
         success: true,
         unpaidOrder,
