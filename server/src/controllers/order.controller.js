@@ -11,7 +11,7 @@ import User from "../models/user.schema.js";
 export const generateOrder = asyncHandler(async (req, res) => {
   const { products, user, address, phoneNumber, paymentOption, amount } =
     req.body;
-    console.log(req.body.products)
+    // console.log(req.body.prod)
   // const userId = await User.findById(user);
   // if (!userId) {
   //   throw new CustomError("User not found.", 400);

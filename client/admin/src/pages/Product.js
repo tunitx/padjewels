@@ -22,6 +22,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import AddProductForm from "../components/AddProductForm";
 import UpdateProductForm from "../components/UpdateProductForm";
+import { GET_ALL_PRODUCTS } from "../constants/Constants";
 
 const { Meta } = Card;
 const { Title } = Typography;
@@ -56,7 +57,7 @@ const Product = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8081/api/v1/product"
+          `${GET_ALL_PRODUCTS}`,
         );
         const items = response?.data;
         setProduct(items);

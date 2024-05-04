@@ -7,6 +7,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import AddCategoryForm from "../components/AddCategoryForm";
 import UpdateCategoryForm from "../components/UpdateCategoryForm";
+import { DELETE_CAT, GET_PRODUCT_CATEGORIES } from "../constants/Constants";
 
 const { Meta } = Card;
 const { Title } = Typography;
@@ -41,7 +42,7 @@ const Category = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8081/api/v1/product/cat"
+          `${GET_PRODUCT_CATEGORIES}`
         );
         const items = response?.data;
         setCategory(items);
@@ -60,10 +61,10 @@ const Category = () => {
       console.log(categoryId);
 
       const response = await axios.delete(
-        `http://localhost:8081/api/v1/product/deleteCat/${categoryId}`
+        `${ DELETE_CAT + categoryId}`
       );
       const updatedCategories = await axios.get(
-        "http://localhost:8081/api/v1/product/cat"
+        `${GET_PRODUCT_CATEGORIES}`
       );
       setCategory(updatedCategories.data);
 

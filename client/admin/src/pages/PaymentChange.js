@@ -3,6 +3,7 @@ import axios from "axios";
 import "../assets/styles/main.css";
 import { Input, Select } from "antd";
 import toast, { Toaster } from "react-hot-toast";
+import { GET_PAYMENT_OPTIONS, PAYMENT_CONFIG, PAYMENT_CONFIG_UPDATE_STATUS } from "../constants/Constants";
 
 const { Option } = Select;
 
@@ -31,7 +32,7 @@ const PaymentChange = () => {
 
     try {
       await axios.post(
-        "http://localhost:8081/api/v1/paymentmethod/paymentconfig",
+        `${PAYMENT_CONFIG}`,
         formData
       );
 
@@ -52,7 +53,7 @@ const PaymentChange = () => {
       console.log(value);
 
       await axios.post(
-        "http://localhost:8081/api/v1/paymentmethod/updatestatus",
+        `${PAYMENT_CONFIG_UPDATE_STATUS}` ,
         {
           paymentGatewayName: value,
         }
@@ -66,7 +67,7 @@ const PaymentChange = () => {
   const fetchPaymentOptions = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8081/api/v1/paymentmethod/paymentoptions"
+        `${GET_PAYMENT_OPTIONS}`
       );
       setPaymentOptions(response.data.paymentGatewayNames || []);
     } catch (error) {

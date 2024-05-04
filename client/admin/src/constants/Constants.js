@@ -23,11 +23,13 @@ export const PAYMENT_CONFIG_UPDATE_STATUS = BASE_URL + 'paymentmethod/updatestat
 
 export const GET_PAYMENT_OPTIONS = BASE_URL + 'paymentmethod/paymentoptions'
 
-export const GET_ALL_PRODUCTS = BASE_URL + 'product';
+export const GET_ALL_PRODUCTS = BASE_URL + 'product/';
 
 export const DELETE_PRODUCT = BASE_URL + 'product/deleteProduct/';
 
 export const SALES_REPORT = BASE_URL + 'sales/salesreport'
+
+export const GET_ALL_ORDERS = BASE_URL + 'order/allorders/';
 
 
 

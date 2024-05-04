@@ -5,6 +5,7 @@ import _ from "lodash"; // Import lodash
 import { SearchOutlined } from "@ant-design/icons";
 import EditUser from "../components/EditUser";
 import axios from "axios";
+import { DELETE_USER, GET_USER } from "../constants/Constants";
 
 const Tables = () => {
   const [searchText, setSearchText] = useState("");
@@ -14,7 +15,7 @@ const Tables = () => {
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      const res = await axios.get(`http://localhost:8081/api/v1/auth/getUser`);
+      const res = await axios.get(`${GET_USER}`);
       // console.log(res.data[0].firstname);
       setData(res.data);
       setIsLoading(false);
@@ -44,10 +45,10 @@ const Tables = () => {
   const handleDeleteUser = async (userId) => {
     try {
       // Make a DELETE request to delete the user by ID
-      await axios.delete(`http://localhost:8081api/v1/auth/delUser/${userId}`);
+      await axios.delete(`${ DELETE_USER + userId}`);
 
       // If the deletion is successful, update the UI by refetching the data
-      const res = await axios.get("http://localhost:8081/api/v1/auth/getUser");
+      const res = await axios.get(`${GET_USER}`);
       setData(res.data);
 
       // Show success notification

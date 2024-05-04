@@ -6,6 +6,8 @@ import "antd/dist/antd.css";
 import "tailwindcss/tailwind.css";
 import "jspdf-autotable";
 import SalesReportTable from "../components/SalesReportTable";
+import { GET_ALL_ORDERS } from "../constants/Constants";
+
 
 const { RangePicker } = DatePicker;
 
@@ -27,7 +29,7 @@ const SalesReportPage = () => {
   }, []);
   const fetchOrders = async (startDate, endDate) => {
     try {
-      let apiUrl = `http://localhost:8081/api/v1/order/allorders/`;
+      let apiUrl = `${GET_ALL_ORDERS}`;
   
       // Append date filters if available
       if (startDate && endDate) {

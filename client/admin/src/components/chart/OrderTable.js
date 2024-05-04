@@ -6,6 +6,7 @@ import "antd/dist/antd.css";
 import "tailwindcss/tailwind.css";
 import "jspdf-autotable";
 import OrderDetailsPage from "./orderDetails/OrderDetails";
+import { GET_ALL_ORDERS } from "../../constants/Constants";
 
 const OrderTable = () => {
   const [orders, setOrders] = useState([]);
@@ -20,7 +21,7 @@ const OrderTable = () => {
 
   const fetchData = async () => {
     try {
-      let apiUrl = `http://localhost:8081/api/v1/order/allorders/`;
+      let apiUrl = `${GET_ALL_ORDERS}`;
 
       // Append date filters if available
       if (startDate && endDate) {

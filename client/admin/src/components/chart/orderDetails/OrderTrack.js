@@ -3,6 +3,7 @@ import { Table, Space, Dropdown, Button, Menu } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import gsap from "gsap";
 import { useToaster } from "react-hot-toast";
+import { BASE_URL } from "../../../constants/Constants";
 
 const TrackOrder = ({ order }) => {
   const orderStatusMap = {
@@ -31,7 +32,7 @@ const TrackOrder = ({ order }) => {
     try {
       console.log(order._id);
       const response = await fetch(
-        `http://localhost:8081/api/v1/order/${order._id}/orderstatus`,
+        `${BASE_URL}order/${order._id}/orderstatus`,
         {
           method: "PUT",
           headers: {
@@ -90,8 +91,8 @@ const TrackOrder = ({ order }) => {
   ];
 
   const dataSource = order.product.map((product) => ({
-    key: product._id,
-    product: product._id,
+    key: product.productId,
+    product: product.productId,
     count: product.count,
     price: product.price.toFixed(2),
   }));
