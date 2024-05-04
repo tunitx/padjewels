@@ -37,6 +37,9 @@ const LoginRegister = () => {
       window.location.href = 'https://www.example.com';
       return; 
     }
+
+
+    
   
     try {
       const response = await fetch("http://localhost:8081/api/v1/auth/signin", {
