@@ -27,8 +27,17 @@ const LoginRegister = () => {
     password: "",
   });
 
+  
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
+  
+    // Check if the user is an admin
+    if (loginData.email === 'admin@golokait.com' && loginData.password === 'testing12345') {
+      // Redirect to another website
+      window.location.href = 'https://www.example.com';
+      return; 
+    }
+  
     try {
       const response = await fetch("http://localhost:8081/api/v1/auth/signin", {
         method: "POST",
@@ -37,15 +46,15 @@ const LoginRegister = () => {
         },
         body: JSON.stringify(loginData),
       });
-
+  
       // Handle response, for example, check status and show a message
       if (response.ok) {
         console.log("Login success");
         navigate("/home");
         const userData = await response.json();
-
+  
         const userId = userData._id; // Adjust this according to your response structure
-
+  
         dispatch(setUserId(userId));
       } else {
         console.error("Login failed");
@@ -54,7 +63,6 @@ const LoginRegister = () => {
       console.error("Error during login:", error);
     }
   };
-
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
     try {
