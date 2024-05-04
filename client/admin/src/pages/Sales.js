@@ -31,6 +31,7 @@ const SalesReportPage = () => {
         `${apiUrl}?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`
       );
       const result = await response.json();
+      console.log(result)
       setData(result.productSales);
 
       const total = result.productSales.reduce(
@@ -139,7 +140,7 @@ const SalesReportPage = () => {
         </Button>
       </div>
 
-      <SalesReportTable data={data} columns={columns} />
+      <SalesReportTable data={data} columns = {columns}  />
 
       {/* Modal for displaying order details */}
       <Modal

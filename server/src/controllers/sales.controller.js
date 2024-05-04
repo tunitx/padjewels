@@ -18,38 +18,45 @@ export const salesreport = asyncHandler(async (req, res) => {
   }
 
   const allOrders = await Order.find(filter);
-
+  // console.log("yes")
   const productSales = await Promise.all(
+    
     allOrders.map(async (order) => {
+      
       const productSalesInfo = await Promise.all(
         order.product.map(async (productInfo) => {
           const product = await Product.findById(productInfo.productId);
           return {
             productId: productInfo.productId,
             productName: product ? product.productName : "Unknown Product",
-            quantity: productInfo.count,
-            totalAmount: productInfo.count * productInfo.price,
+            quantity: productInfo.count || 0,
+            totalAmount: (productInfo.count || 0) * (productInfo.price || 0),
           };
         })
       );
-
       const sale = new Sale({
         products: productSalesInfo,
         productName: order.productName,
         quantity: order.product.reduce(
-          (total, productInfo) => total + productInfo.count,
+          (total, productInfo) => total + (Number.isFinite(productInfo.count) ? productInfo.count : 0),
           0
         ),
         totalAmount: order.amount,
       });
-
-      await sale.save();
+      
+      try {
+        await sale.save();
+      } catch (error) {
+        console.error('Error saving sale:', error);
+      }
 
       return productSalesInfo;
     })
   );
+  // console.log(productSales + 'tanishh');
 
   const flattenedProductSales = productSales.flat();
+  console.log(flattenedProductSales + 'golola');
 
   res.json({ productSales: flattenedProductSales });
 });

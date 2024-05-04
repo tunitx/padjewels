@@ -11,10 +11,15 @@ export const createConfig = asyncHandler(async (req, res) => {
     throw new CustomError("All fields are required", 404);
   }
 
+  // Hash the secretKey
+  const hashedSecretKey = crypto.createHmac('sha256', secretKey)
+                                 .update('Tanish loves a secret key')
+                                 .digest('hex');
+
   const paymentGateway = await Payment.create({
     paymentGatewayName,
     keyName,
-    secretKey,
+    secretKey: hashedSecretKey,  
   });
 
   res.status(200).json({

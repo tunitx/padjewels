@@ -264,7 +264,7 @@ function Sidenav({ color }) {
             <span
               className="icon"
               style={{
-                background: page === "orders" ? color : "",
+                background: page === "carts" ? color : "",
               }}
             >
               {billing}
@@ -272,41 +272,33 @@ function Sidenav({ color }) {
             <span className="label">Carts</span>
           </NavLink>
         </Menu.Item>
-        {/* <Menu.Item key="8">
-          <NavLink to="/rtl">
+        <Menu.Item key="9">
+          <NavLink to="/payment">
             <span
               className="icon"
               style={{
-                background: page === "rtl" ? color : "",
+                background: page === "payment" ? color : "",
               }}
             >
-              {rtl}
+              {billing}
             </span>
-            <span className="label">RTL</span>
-          </NavLink> */}
-          <Menu.Item key="9">
-            <NavLink to="/payment">
-              <span
-                className="icon"
-                style={{
-                  background: page === "payment" ? color : "",
-                }}
-              >
-                {billing}
-              </span>
-              <span className="label">Payments</span>
-            </NavLink>
-          </Menu.Item>
-        {/* </Menu.Item> */}
-      
-       
-       
-        {/* <Menu.Item key="12">
-          <NavLink to="/sign-up">
-            <span className="icon">{signup}</span>
-            <span className="label">Sign Up</span>
+            <span className="label">Payments</span>
           </NavLink>
-        </Menu.Item> */}
+        </Menu.Item>
+        <Menu.Item key="9">
+          <a href="https://www.example.com">
+            <span
+              className="icon"
+              style={{
+                backgroundColor: "red",
+              }}
+            >
+              {billing}
+            </span>
+            <span className="label">Sign Out</span>
+          </a>
+        </Menu.Item>
+
       </Menu>
     </>
   );
