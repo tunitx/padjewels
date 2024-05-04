@@ -22,6 +22,11 @@ const SalesReportTable = ({ data }) => {
       key: "productQuantity",
     },
     {
+      title: "Product price",
+      dataIndex: "mrp",
+      key: "mrp",
+    },
+    {
       title: "Total Amount",
       dataIndex: "amount",
       key: "amount",

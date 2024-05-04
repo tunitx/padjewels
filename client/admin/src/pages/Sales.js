@@ -46,13 +46,13 @@ const SalesReportPage = () => {
       const products = data.orders.flatMap(order => 
         Array.isArray(order.product) 
           ? order.product.map(product => ({
-              productName: product.productName || 'Default Product Name',
-              productQuantity: product.productQuantity || 'Default Quantity',
-              amount: order.amount || 'Default Amount',
-              orderId: order.orderId,
-              createdAt: order.createdAt,
-             
-            }))
+            productName: product.productName || 'Default Product Name',
+            productQuantity: product.productQuantity || 'Default Quantity',
+            mrp: product.mrpPrice,
+            amount: (product.mrpPrice * (product.productQuantity || 1)) || 'Default Amount',
+            orderId: order.orderId,
+            createdAt: order.createdAt,
+          }))
           : []
       );
       console.log(products)
@@ -83,19 +83,21 @@ const SalesReportPage = () => {
       item.orderId,
       item.productName,
       item.productQuantity,
-      item.createdAt,
+      item.mrp,
       item.amount,
+      item.createdAt,
     ]);
-
+    
+    const overallAmount =  data.reduce((total, item) => total + (typeof item.amount === 'number' ? item.amount : 0), 0);
     pdf.autoTable({
       head: [
-        ["Order ID", "Product Name", "Quantity", "Created At"],
+        ["Order ID", "Product Name", "Quantity", "Product Price",  "Total Amount", "Created At"],
       ],
       body: rows,
     });
 
     pdf.text(
-      `Total Amount: $${totalAmount}`,
+      `Total Amount: $${overallAmount}`,
       20,
       pdf.autoTable.previous.finalY + 10
     );
@@ -118,6 +120,11 @@ const SalesReportPage = () => {
       title: "Product Quantity",
       dataIndex: "productQuantity",
       key: "productQuantity",
+    },
+    {
+      title: "Product price",
+      dataIndex: "productPrice",
+      key: "mrp",
     },
     {
       title: "Total Amount",
