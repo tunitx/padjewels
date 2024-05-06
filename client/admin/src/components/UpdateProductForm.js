@@ -19,6 +19,10 @@ const UpdateProductForm = ({ visible, onClose, product, onUpdate }) => {
         purchasePrice: product.purchasePrice,
         mrpPrice: product.mrpPrice,
         stockQuantity: product.stockQuantity,
+
+
+
+        
       });
     }
   }, [visible, product, form]);
