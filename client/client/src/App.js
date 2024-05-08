@@ -6,6 +6,7 @@ import TermsConditions from "./pages/other/TermsConditions";
 import "./index.css";
 import FAQ from "./pages/other/FAQ";
 import Orders from "./pages/other/Orders";
+import RefundPolicy from "./pages/other/RefundPolicy";
 
 
 // home pages
@@ -128,199 +129,10 @@ const App = () => {
               element={<HomeFashion />}
             />
 
-            {/* Homepages */}
-            {/* <Route
-                path={process.env.PUBLIC_URL + "/home-fashion"}
-                element={<HomeFashion/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-fashion-two"}
-                element={<HomeFashionTwo/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-fashion-three"}
-                element={<HomeFashionThree/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-fashion-four"}
-                element={<HomeFashionFour/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-fashion-five"}
-                element={<HomeFashionFive/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-fashion-six"}
-                element={<HomeFashionSix/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-fashion-seven"}
-                element={<HomeFashionSeven/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-fashion-eight"}
-                element={<HomeFashionEight/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-kids-fashion"}
-                element={<HomeKidsFashion/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-cosmetics"}
-                element={<HomeCosmetics/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-furniture"}
-                element={<HomeFurniture/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-furniture-two"}
-                element={<HomeFurnitureTwo/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-furniture-three"}
-                element={<HomeFurnitureThree/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-furniture-four"}
-                element={<HomeFurnitureFour/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-furniture-five"}
-                element={<HomeFurnitureFive/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-furniture-six"}
-                element={<HomeFurnitureSix/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-furniture-seven"}
-                element={<HomeFurnitureSeven/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-electronics"}
-                element={<HomeElectronics/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-electronics-two"}
-                element={<HomeElectronicsTwo/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-electronics-three"}
-                element={<HomeElectronicsThree/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-book-store"}
-                element={<HomeBookStore/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-book-store-two"}
-                element={<HomeBookStoreTwo/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-plants"}
-                element={<HomePlants/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-flower-shop"}
-                element={<HomeFlowerShop/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-flower-shop-two"}
-                element={<HomeFlowerShopTwo/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-organic-food"}
-                element={<HomeOrganicFood/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-organic-food-two"}
-                element={<HomeOrganicFoodTwo/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-onepage-scroll"}
-                element={<HomeOnepageScroll/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-grid-banner"}
-                element={<HomeGridBanner/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-auto-parts"}
-                element={<HomeAutoParts/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-cake-shop"}
-                element={<HomeCakeShop/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-handmade"}
-                element={<HomeHandmade/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-pet-food"}
-                element={<HomePetFood/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-medical-equipment"}
-                element={<HomeMedicalEquipment/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-christmas"}
-                element={<HomeChristmas/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-black-friday"}
-                element={<HomeBlackFriday/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-black-friday-two"}
-                element={<HomeBlackFridayTwo/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/home-valentines-day"}
-                element={<HomeValentinesDay/>}
-              /> */}
-
-            {/* Shop pages */}
-            {/* <Route
-                path={process.env.PUBLIC_URL + "/shop-grid-standard"}
-                element={<ShopGridStandard/>}
-              /> */}
-            {/* <Route
-                path={process.env.PUBLIC_URL + "/shop-grid-filter"}
-                element={<ShopGridFilter/>}
-              /> */}
-            {/* <Route
-                path={process.env.PUBLIC_URL + "/shop-grid-two-column"}
-                element={<ShopGridTwoColumn/>}
-              /> */}
-            {/* <Route
-                path={process.env.PUBLIC_URL + "/shop-grid-no-sidebar"}
-                element={<ShopGridNoSidebar/>}
-              /> */}
-            {/* <Route
-                path={process.env.PUBLIC_URL + "/shop-grid-full-width"}
-                element={<ShopGridFullWidth/>}
-              /> */}
-            {/* <Route
-                path={process.env.PUBLIC_URL + "/shop-grid-right-sidebar"}
-                element={<ShopGridRightSidebar/>}
-              /> */}
             <Route
               path={process.env.PUBLIC_URL + "/shop-list-standard"}
               element={<ShopListStandard />}
             />
-            {/* <Route
-                path={process.env.PUBLIC_URL + "/shop-list-full-width"}
-                element={<ShopListFullWidth/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/shop-list-two-column"}
-                element={<ShopListTwoColumn/>}
-              /> */}
-
-            {/* Shop product pages */}
             <Route
               path={process.env.PUBLIC_URL + "/product/:id"}
               element={<Product />}
@@ -410,34 +222,38 @@ const App = () => {
               path={process.env.PUBLIC_URL + "/faq"}
               element={<FAQ />}
             />
-              <Route
-                path={process.env.PUBLIC_URL + "/cart"}
-                element={<Cart/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/wishlist"}
-                element={<Wishlist/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/compare"}
-                element={<Compare/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/checkout"}
-                element={<Checkout/>}
-              /> 
-              <Route
-                path={process.env.PUBLIC_URL + "/orders"}
-                element={<Orders/>}
-              />
-              <Route
-                path={process.env.PUBLIC_URL + "/privacy-policy"}
-                element={<PrivacyPolicy/>}
-              /> 
-              <Route
-                path={process.env.PUBLIC_URL + "/terms-conditions"}
-                element={<TermsConditions/>}
-              /> 
+            <Route
+              path={process.env.PUBLIC_URL + "/cart"}
+              element={<Cart />}
+            />
+            <Route
+              path={process.env.PUBLIC_URL + "/wishlist"}
+              element={<Wishlist />}
+            />
+            <Route
+              path={process.env.PUBLIC_URL + "/compare"}
+              element={<Compare />}
+            />
+            <Route
+              path={process.env.PUBLIC_URL + "/checkout"}
+              element={<Checkout />}
+            />
+            <Route
+              path={process.env.PUBLIC_URL + "/orders"}
+              element={<Orders />}
+            />
+            <Route
+              path={process.env.PUBLIC_URL + "/privacy-policy"}
+              element={<PrivacyPolicy />}
+            />
+            <Route
+              path={process.env.PUBLIC_URL + "/terms-conditions"}
+              element={<TermsConditions />}
+            />
+            <Route
+              path={process.env.PUBLIC_URL + "/refund-policy"}
+              element={<RefundPolicy />}
+            />
 
             <Route path="*" element={<NotFound />} />
           </Routes>

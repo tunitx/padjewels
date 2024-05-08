@@ -4,7 +4,7 @@ import cogoToast from "cogo-toast";
 export const addToCart = (userId, productId) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post(`http://localhost:8081/api/v1/cart/add-item/${userId}`, {
+      const response = await axios.post(`https://padjewels.onrender.com/api/v1/cart/add-item/${userId}`, {
         productId,
       });
       dispatch({ type: "ADD_TO_CART", payload: response.data });
@@ -18,7 +18,7 @@ export const addToCart = (userId, productId) => {
 export const deleteFromCart = (userId, productId) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`http://localhost:8081/api/v1/cart/remove-item/${userId}/${productId}`);
+      await axios.delete(`https://padjewels.onrender.com/api/v1/cart/remove-item/${userId}/${productId}`);
       dispatch({ type: "DELETE_FROM_CART", payload: productId });
       cogoToast.error("Removed From Cart", { position: "bottom-left" });
     } catch (error) {
@@ -31,7 +31,7 @@ export const decreaseQuantity = (userId, productId) => {
   return async (dispatch) => {
     try {
       const response = await axios.delete(
-        `http://localhost:8081/api/v1/cart/remove-item/${userId}/${productId}`
+        `https://padjewels.onrender.com/api/v1/cart/remove-item/${userId}/${productId}`
       );
       dispatch({ type: "DECREASE_QUANTITY", payload: response.data });
       cogoToast.warn("Item Decremented From Cart", { position: "bottom-left" });
@@ -44,7 +44,7 @@ export const decreaseQuantity = (userId, productId) => {
 export const deleteAllFromCart = (userId) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`http://localhost:8081/api/v1/cart/clear/${userId}`);
+      await axios.delete(`https://padjewels.onrender.com/api/v1/cart/clear/${userId}`);
       dispatch({ type: "DELETE_ALL_FROM_CART" });
       cogoToast.success("Cart Cleared", { position: "bottom-left" });
     } catch (error) {

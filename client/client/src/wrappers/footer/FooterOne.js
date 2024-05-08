@@ -77,7 +77,7 @@ const FooterOne = ({
               <div className="footer-list">
                 <ul>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "#/"}>Returns</Link>
+                    <Link to={process.env.PUBLIC_URL + "/refund-policy"}>Refund Policy</Link>
                   </li>
                   <li>
                     <Link to={process.env.PUBLIC_URL + "/privacy-policy"}>

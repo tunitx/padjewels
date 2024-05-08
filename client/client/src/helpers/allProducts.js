@@ -4,7 +4,7 @@ import { setProducts } from "../store/slices/product-slice";
 const fetchData = async () => {
     try {
         const response = await axios.get(
-            "http://localhost:8081/api/v1/product"
+            "https://padjewels.onrender.com/api/v1/product"
         );
         const items = response?.data;
         // setCurrentProduct(items);

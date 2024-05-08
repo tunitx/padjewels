@@ -9,7 +9,7 @@ const SectionTitleForTC = ({ spaceTopClass, spaceBottomClass }) => {
           <h5>Terms & Conditions</h5>
           <h1>Introduction</h1>
           <p>
-            Welcome to Shukra Jewellery. By accessing and using our website, you agree to comply with and be bound by the following Terms and Conditions. If you do not agree with these terms, please refrain from using our services.{" "}
+            Welcome to Pad Jewels. By accessing and using our website, you agree to comply with and be bound by the following Terms and Conditions. If you do not agree with these terms, please refrain from using our services.{" "}
           </p>
           <br />
 

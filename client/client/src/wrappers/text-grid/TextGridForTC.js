@@ -17,9 +17,9 @@ const TextGridForTC = ({ spaceBottomClass }) => {
               />
             </div>
           ))}
-          <p>By using our website, you agree to be bound by these Terms and Conditions. If you have any questions or concerns, please contact us at <a target="_blank" rel="noreferrer" href="mailto:contact@shukrajewellary.com">contact@shukrajewellary.com</a>.
+          <p>By using our website, you agree to be bound by these Terms and Conditions. If you have any questions or concerns, please contact us at <a target="_blank" rel="noreferrer" href="mailto:contact@padjewellary.com">contact@padjewellary.com</a>.
 
-            Thank you for choosing Shukra Jewellery.
+            Thank you for choosing Pad Jewels.
           </p>
         </div>
       </div>

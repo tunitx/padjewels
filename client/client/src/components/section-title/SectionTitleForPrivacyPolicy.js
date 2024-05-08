@@ -9,34 +9,116 @@ const SectionTitleForPrivacyPolicy = ({ spaceTopClass, spaceBottomClass }) => {
           <h5>Privacy Policy</h5>
           <h1>Introduction</h1>
           <p>
-            Welcome to Shukra Jewellery's Privacy Policy. At Shukra Jewellery, we are committed to safeguarding the privacy and security of our customers. This Privacy Policy outlines how we collect, use, disclose, and protect your personal information.{" "}
+            This privacy policy sets out how Pad Jewels uses and protects any information that you give Pad Jewels when you use this website.
+            Pad Jewels is committed to ensuring that your privacy is protected. Should we ask you to provide certain information by which you can be identified when using this website, then you can be assured that it will only be used in accordance with this privacy statement.
+
+            Pad Jewels may change this policy from time to time by updating this page. You should check this page from time to time to ensure that you are happy with any changes. This policy is effective from 06/05/2024.
+
           </p>
           <br />
           <h1>Information We Collect</h1>
           <p>
-            We collect information that you provide to us voluntarily, including but not limited to your name, contact details, billing information, and any other information you choose to share with us during your interactions with Shukra Jewellery.{" "}
+            We may collect the following- <information->
+              <ul className='list-disc list-inside'>
+
+                <li>
+                  Name and date of birth.
+
+                </li>
+                <li>
+                  Contact information including email address.
+
+                </li>
+                <li>
+                  Demographic information such as postcode, preferences and interests
+
+                </li>
+                <li>
+                  Other information relevant to customer surveys and/or offers
+
+                </li>
+
+              </ul>
+            </information->
           </p>
           <br />
           <h1>How We Use Your Information</h1>
           <p>
-            We use the information we collect for purposes including order processing, personalised service, communication, and to improve our products and services. We may also use your information to send you promotional materials and updates about Shukra Jewellery, but you can opt out of these communications at any time.{" "}
+            <ul className="list-disc list-inside">
+              <li>
+                Internal record keeping.
+              </li>
+              <li>
+                We may use the information to improve our products and services.
+              </li>
+              <li>
+                We may periodically send promotional emails about new products, special offers or other information which we think you may find interesting using the email address which you have provided.
+
+              </li>
+              <li>
+                From time to time, we may also use your information to contact you for market research purposes. We may contact you by email, phone, fax or mail.
+              </li>
+              <li>
+                We may use the information to customise the website according to your interests.
+              </li>
+              <li>For enhancing security.</li>
+            </ul>
           </p>
           <br />
-          <h1> Protection of Your Information</h1>
+          {/* <h1> Protection of Your Information</h1>
           <p>
-            We implement security measures to protect your personal information from unauthorised access, disclosure, alteration, and destruction. Your information is treated with the utmost confidentiality, and we do not sell or rent your personal information to third parties{" "}
+          We are committed to ensuring that your information is secure. In order to prevent unauthorized access or disclosure we have put in place suitable physical, electronic and managerial procedures to safeguard and secure the information we collect online.
           </p>
-          <br />
+          <br /> */}
           <h1> Cookies and Similar Technologies</h1>
           <p>
-            Shukra Jewellery may use cookies and similar technologies to enhance your browsing experience on our website. You can adjust your browser settings to disable cookies, but this may affect your ability to access certain features of our site.{" "}
+            A cookie is a small file which asks permission to be placed on your computer's hard drive. Once you agree, the file is added and the cookie helps analyse web traffic or lets you know when you visit a particular site. Cookies allow web applications to respond to you as an individual. The web application can tailor its operations to your needs, likes and dislikes by gathering and remembering information about your preferences.
+
           </p>
+
           <br />
-          <h1>Third-Party Links</h1>
           <p>
-            Our website may contain links to third-party websites. Shukra Jewellery is not responsible for the privacy practices or content of these third-party sites. We recommend reviewing the privacy policies of any external websites you visit.{" "}
+            We use traffic log cookies to identify which pages are being used. This helps us analyse data about webpage traffic and improve our website in order to tailor it to customer needs. We only use this information for statistical analysis purposes and then the data is removed from the system.
+
           </p>
           <br />
+          <p>
+            Overall, cookies help us provide you with a better website, by enabling us to monitor which pages you find useful and which you do not. A cookie in no way gives us access to your computer or any information about you, other than the data you choose to share with us.
+
+          </p>
+          <br />
+          <p>
+            You can choose to accept or decline cookies. Most web browsers automatically accept cookies, but you can usually modify your browser setting to decline cookies if you prefer. This may prevent you from taking full advantage of the website.
+
+          </p>
+          <br />
+          <h1>Controlling your information</h1>
+          <p>
+            You may choose to restrict the collection or use of your personal information in the following ways:
+          </p>
+
+          <p>
+            Whenever you are asked to fill in a form on the website, look for the box that you can click to indicate that you do not want the information to be used by anybody for direct marketing purposes.
+          </p>
+          <br />
+          <p>
+            If you have previously agreed to us using your personal information for direct marketing purposes, you may change your mind at any time by writing to or emailing us at support <a href="mailto:supportpadjewels@support.com" className="text-gray-500 font-bold">padjewels@support.com</a>
+          </p>
+
+          <br />
+          <p>
+            We will not sell, distribute or lease your personal information to third parties unless we have your permission or are required by law to do so.
+          </p>
+          <br />
+          <p>We may use your personal information to send you promotional information about third parties which we think you may find interesting if you tell us that you wish this to happen.
+          </p>
+          <br />
+          <p>
+            If you believe that any information we are holding on you is incorrect or incomplete, please write to or email us as soon as possible, at the above address. We will promptly correct any information found to be incorrect
+
+          </p>
+
+          {/* <br />
           <h1>Children's Privacy</h1>
           <p>
             Shukra Jewellery does not knowingly collect personal information from individuals under the age of 13. If you are a parent or guardian and believe that your child has provided us with personal information, please contact us, and we will take steps to delete such information.{" "}
@@ -51,7 +133,7 @@ const SectionTitleForPrivacyPolicy = ({ spaceTopClass, spaceBottomClass }) => {
           <p>
             If you have any questions, concerns, or requests regarding your privacy or this Privacy Policy, please contact us at <a target="_blank" rel="noreferrer" href="mailto:contact@shukrajewellery.com">contact@shukrajewellery.com</a>.{" "}
           </p>
-          <br />
+          <br /> */}
         </div>
       </div>
     </div>

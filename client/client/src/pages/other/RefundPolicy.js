@@ -3,36 +3,41 @@ import { useLocation } from "react-router-dom";
 import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import SectionTitleWithText from "../../components/section-title/SectionTitleWithText";
+import BannerOne from "../../wrappers/banner/BannerOne";
+import TextGridOne from "../../wrappers/text-grid/TextGridOne";
+import FunFactOne from "../../wrappers/fun-fact/FunFactOne";
+import TeamMemberOne from "../../wrappers/team-member/TeamMemberOne";
+import BrandLogoSliderOne from "../../wrappers/brand-logo/BrandLogoSliderOne";
+import SectionTitleForPrivacyPolicy from "../../components/section-title/SectionTitleForPrivacyPolicy";
+import SectionTitleForRefundPolicy from "../../components/section-title/SectionTitleForRefundPolicy";
 
-import SectionTitleForTC from "../../components/section-title/SectionTitleForT&C";
-import TextGridForTC from "../../wrappers/text-grid/TextGridForTC";
-
-const TermsConditions = () => {
+const PrivacyPolicy = () => {
   let { pathname } = useLocation();
 
   return (
     <Fragment>
       <SEO
-        titleTemplate="Terms and Conditions"
-        description="It consists of all the terms and conditions needed for a business with Pad Jewellers."
+        titleTemplate="Privacy Policy"
+        description="This policy describes the privacy policy of Shukra Jewellars."
       /> 
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}
         <Breadcrumb 
           pages={[
             {label: "Home", path: process.env.PUBLIC_URL + "/" },
-            {label: "Terms & Conditions", path: process.env.PUBLIC_URL + pathname }
+            {label: "Refund Policy", path: process.env.PUBLIC_URL + pathname }
           ]} 
         />
 
         {/* section title with text */}
-        <SectionTitleForTC spaceTopClass="pt-100" spaceBottomClass="pb-95" />
+        <SectionTitleForRefundPolicy spaceTopClass="pt-100" spaceBottomClass="pb-95" />
 
-        {/* banner */} 
+        {/* banner */}
         {/* <BannerOne spaceBottomClass="pb-70" /> */}
 
         {/* text grid */}
-        <TextGridForTC spaceBottomClass="pb-70" />
+        {/* <TextGridOne spaceBottomClass="pb-70" /> */}
 
         {/* fun fact */}
         {/* <FunFactOne
@@ -51,4 +56,4 @@ const TermsConditions = () => {
   );
 };
 
-export default TermsConditions;
+export default PrivacyPolicy;

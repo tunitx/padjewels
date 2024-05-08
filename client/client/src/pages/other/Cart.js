@@ -30,7 +30,7 @@ const Cart = () => {
     try {
       // console.log(cartItemId, userId);
       const response = await fetch(
-        `http://localhost:8081/api/v1/carts/cart/remove-item/${userId}/${cartItemId1}`,
+        `https://padjewels.onrender.com/api/v1/carts/cart/remove-item/${userId}/${cartItemId1}`,
         {
           method: "DELETE",
           headers: {

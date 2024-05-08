@@ -87,7 +87,7 @@ const Checkout = () => {
       // Handle COD payment
       try {
         const response = await axios.post(
-          "http://localhost:8081/api/v1/order/generateorder",
+          "https://padjewels.onrender.com/api/v1/order/generateorder",
           {
             products: cartItems,
             user: user.userId,
@@ -112,7 +112,7 @@ const Checkout = () => {
       // Handle online payment
       try {
         const response = await axios.post(
-          "http://localhost:8081/api/v1/order/generateorder",
+          "https://padjewels.onrender.com/api/v1/order/generateorder",
           {
             products: cartItems,
             user: user.userId,
@@ -135,7 +135,7 @@ const Checkout = () => {
           order_id: order?.orderId,
           handler: async function (response) {
             const data = await fetch(
-              "http://localhost:8081/api/v1/paymentmethod/verifytransaction",
+              "https://padjewels.onrender.com/api/v1/paymentmethod/verifytransaction",
               {
                 method: "POST",
                 headers: {

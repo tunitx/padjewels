@@ -158,7 +158,7 @@ const getProductCategoryName = async (categoryId) => {
 const fetchCategoryById = async (categoryId) => {
   try {
     const response = await axios.get(
-      `http://localhost:8081/api/v1/product/cat/${categoryId}`
+      `https://padjewels.onrender.com/api/v1/product/cat/${categoryId}`
     );
     console.log(response.data);
     return response.data;

@@ -19,7 +19,7 @@ const MyAccount = () => {
     const fetchUserData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8081/api/v1/auth/getUser/${userId}`
+          `https://padjewels.onrender.com/api/v1/auth/getUser/${userId}`
         );
         if (response.ok) {
           const fetchedUserData = await response.json();
@@ -48,7 +48,7 @@ const MyAccount = () => {
       // console.log('Updating account information with payload:', JSON.stringify(userData));
 
       const response = await fetch(
-        `http://localhost:8081/api/v1/auth/updUser/${userId}`,
+        `https://padjewels.onrender.com/api/v1/auth/updUser/${userId}`,
         {
           method: "PUT",
           headers: {

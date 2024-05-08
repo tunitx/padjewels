@@ -25,7 +25,8 @@ const Carts = () => {
     }
   };
 
-  const fetchCartData = async (userId) => {
+  const 
+  fetchCartData = async (userId) => {
     try {
       const response = await axios.get(
         `${GET_CART_DATA + userId}`
