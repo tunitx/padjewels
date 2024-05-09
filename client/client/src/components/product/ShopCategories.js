@@ -12,7 +12,7 @@ const ShopCategories = ({ getSortParams }) => {
   const fetchCategoriesFromApi = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8081/api/v1/product/cat"
+        "https://padjewels.onrender.com/api/v1/product/cat"
       );
       setCategories(response.data);
       console.log(response.data);
