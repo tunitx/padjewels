@@ -94,11 +94,11 @@ const LoginRegister = () => {
       });
   
       if (response.ok) {
-        const userData = await response.json();
-        const token = userData.token; // Adjust this according to your response structure
+        // const userData = await response.json();
+        // const token = userData.token; // Adjust this according to your response structure
   
-        // Store the token in local storage
-        localStorage.setItem('my-access-token-of-padjewels', token);
+        // // Store the token in local storage
+        // localStorage.setItem('my-access-token-of-padjewels', token);
   
         setRegisterData({
           username: "",
