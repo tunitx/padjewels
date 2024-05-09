@@ -47,7 +47,7 @@ const LoginRegister = () => {
       return;
     }
     try {
-      const response = await fetch("http://localhost:8081/api/v1/auth/signin", {
+      const response = await fetch("https://padjewels.onrender.com/api/v1/auth/signin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -93,7 +93,7 @@ const LoginRegister = () => {
         ...registerData,
       };
 
-      const response = await fetch("http://localhost:8081/api/v1/auth/signup", {
+      const response = await fetch("https://padjewels.onrender.com/api/v1/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
