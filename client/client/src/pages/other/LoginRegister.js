@@ -2,11 +2,12 @@ import React, { Fragment, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
-import { toast } from "react-hot-toast";
+// import { toast } from "react-hot-toast";
 import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 import { useDispatch } from "react-redux";
 import { setUserId } from "../../store/slices/user-slice"; // Update the path
 
@@ -28,19 +29,15 @@ const LoginRegister = () => {
   });
 
   
+
+
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
   
-    // Check if the user is an admin
     if (loginData.email === 'admin@golokait.com' && loginData.password === 'testing12345') {
-      // Redirect to another website
       window.location.href = 'https://www.example.com';
       return; 
     }
-
-
-    
-  
     try {
       const response = await fetch("https://padjewels.onrender.com/api/v1/auth/signin", {
         method: "POST",
@@ -50,22 +47,31 @@ const LoginRegister = () => {
         body: JSON.stringify(loginData),
       });
   
-      // Handle response, for example, check status and show a message
       if (response.ok) {
-        console.log("Login success");
-        navigate("/home");
         const userData = await response.json();
+        const userId = userData._id; 
+        const token = userData.token; 
   
-        const userId = userData._id; // Adjust this according to your response structure
+        // Store the token in local storage
+        localStorage.setItem('my-access-token-of-padjewels', token);
   
         dispatch(setUserId(userId));
+  
+        // Show a success toast
+        toast.success("Login success");
+        navigate("/");
       } else {
-        console.error("Login failed");
+        // Show an error toast
+        toast.error("Login failed");
       }
     } catch (error) {
       console.error("Error during login:", error);
+      // Show an error toast
+      toast.error("An error occurred during login");
     }
   };
+
+
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -78,7 +84,7 @@ const LoginRegister = () => {
         altNumber: null,
         ...registerData,
       };
-
+  
       const response = await fetch("https://padjewels.onrender.com/api/v1/auth/signup", {
         method: "POST",
         headers: {
@@ -86,25 +92,33 @@ const LoginRegister = () => {
         },
         body: JSON.stringify(userDataWithDefaults),
       });
-
+  
       if (response.ok) {
-        console.log("Registration success");
+        const userData = await response.json();
+        const token = userData.token; // Adjust this according to your response structure
+  
+        // Store the token in local storage
+        localStorage.setItem('my-access-token-of-padjewels', token);
+  
         setRegisterData({
           username: "",
           email: "",
           password: "",
         });
-        toast.success("Registration successful!");
-
+  
+        // Show a success toast
+        toast.success("Registration successful, Now please Log in");
+  
         // Redirect to the login tab
-        document.getElementById("login-tab").click(); // Trigger click event on login tab
+        document.getElementById("login-tab").click(); // Trigger click event 
       } else {
-        console.error("Registration failed");
-        // toast.error("Registration failed. Please try again.");
+        // Show an error toast
+        toast.error("Registration failed. Please try again.");
       }
     } catch (error) {
       console.error("Error during registration:", error);
-      // toast.error("An error occurred. Please try again later.");
+      // Show an error toast
+      toast.error("An error occurred. Please try again later.");
     }
   };
 
@@ -161,12 +175,16 @@ const LoginRegister = () => {
                         <div className="login-form-container">
                           <div className="login-register-form">
                             <form onSubmit={handleLoginSubmit}>
+                            <label for="email">
+                              Email
+                            </label>
                               <input
                                 type="email"
                                 name="email"
-                                placeholder="email"
+                                placeholder="Email"
                                 onChange={handleLoginInputChange}
                               />
+                              <label for="password"> Password</label>
                               <input
                                 type="password"
                                 name="password"
@@ -174,7 +192,7 @@ const LoginRegister = () => {
                                 onChange={handleLoginInputChange}
                               />
                               {/* ... (rest of the form) */}
-                              <button type="submit">
+                              <button type="submit" className="bg-purple-400 p-2 rounded-md">
                                 <span>Login</span>
                               </button>
                             </form>
@@ -186,18 +204,28 @@ const LoginRegister = () => {
                         <div className="login-form-container">
                           <div className="login-register-form">
                             <form onSubmit={handleRegisterSubmit}>
+                            <label for="username">
+                              Username
+                            </label>
                               <input
                                 type="text"
                                 name="username"
                                 placeholder="Username"
                                 onChange={handleRegisterInputChange}
                               />
+
+                              <label for="email">
+                                Email
+                              </label>
                               <input
                                 name="email"
                                 placeholder="Email"
                                 type="email"
                                 onChange={handleRegisterInputChange}
                               />
+                              <label for="password">
+                                Password
+                              </label>
                               <input
                                 type="password"
                                 name="password"
@@ -205,7 +233,7 @@ const LoginRegister = () => {
                                 onChange={handleRegisterInputChange}
                               />
                               {/* ... (rest of the form) */}
-                              <button type="submit">
+                              <button type="submit" className="bg-purple-400 p-2 rounded-md"> 
                                 <span>Register</span>
                               </button>
                             </form>

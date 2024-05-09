@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import clsx from "clsx";
 import MenuCart from "./sub-components/MenuCart";
+import { toast } from 'react-toastify';
 
 const IconGroup = ({ iconWhiteClass }) => {
   const handleClick = e => {
@@ -18,6 +19,15 @@ const IconGroup = ({ iconWhiteClass }) => {
   const { compareItems } = useSelector((state) => state.compare);
   const { wishlistItems } = useSelector((state) => state.wishlist);
   const { cartItems } = useSelector((state) => state.cart);
+  const token = localStorage.getItem('my-access-token-of-padjewels');
+
+  const handleSignOut = () => {
+    // Remove the token from local storage
+    localStorage.removeItem('token');
+
+    // Show a toast notification
+    toast.success("Signed out successfully");
+  };
 
   return (
     <div className={clsx("header-right-wrap", iconWhiteClass)} >
@@ -42,7 +52,9 @@ const IconGroup = ({ iconWhiteClass }) => {
           <i className="pe-7s-user-female" />
         </button>
         <div className="account-dropdown">
-          <ul>
+      <ul>
+        {!token ? (
+          <>
             <li>
               <Link to={process.env.PUBLIC_URL + "/login-register"}>Login</Link>
             </li>
@@ -51,22 +63,25 @@ const IconGroup = ({ iconWhiteClass }) => {
                 Register
               </Link>
             </li>
+          </>
+        ) : (
+          <>
             <li>
               <Link to={process.env.PUBLIC_URL + "/my-account"}>
-                my account
+                My Account
               </Link>
             </li>
-          </ul>
-        </div>
+            <li>
+              <Link to={process.env.PUBLIC_URL + "/"} onClick={handleSignOut}>
+                Sign Out
+              </Link>
+            </li>
+          </>
+        )}
+      </ul>
+    </div>
       </div>
-      {/* <div className="same-style header-compare">
-        <Link to={process.env.PUBLIC_URL + "/compare"}>
-          <i className="pe-7s-shuffle" />
-          <span className="count-style">
-            {compareItems && compareItems.length ? compareItems.length : 0}
-          </span>
-        </Link>
-      </div> */}
+      
       <div className="same-style header-wishlist">
         <Link to={process.env.PUBLIC_URL + "/wishlist"}>
           <i className="pe-7s-like" />
