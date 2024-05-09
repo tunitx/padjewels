@@ -22,10 +22,7 @@ const IconGroup = ({ iconWhiteClass }) => {
   const token = localStorage.getItem('my-access-token-of-padjewels');
 
   const handleSignOut = () => {
-    // Remove the token from local storage
-    localStorage.removeItem('token');
-
-    // Show a toast notification
+    localStorage.removeItem('my-access-token-of-padjewels');
     toast.success("Signed out successfully");
   };
 
