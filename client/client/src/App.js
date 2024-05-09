@@ -7,7 +7,7 @@ import "./index.css";
 import FAQ from "./pages/other/FAQ";
 import Orders from "./pages/other/Orders";
 import RefundPolicy from "./pages/other/RefundPolicy";
-
+import { ToastContainer, toast } from 'react-toastify';
 
 // home pages
 const HomeFashion = lazy(() => import("./pages/home/HomeFashion"));
@@ -112,6 +112,7 @@ const NotFound = lazy(() => import("./pages/other/NotFound"));
 const App = () => {
   return (
     <Router>
+    <ToastContainer />
       <ScrollToTop>
         <Suspense
           fallback={

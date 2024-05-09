@@ -1,3 +1,6 @@
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import React, { Fragment, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Tab from "react-bootstrap/Tab";
@@ -7,12 +10,12 @@ import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useNavigate } from "react-router-dom";
-import { toast } from 'react-toastify';
 import { useDispatch } from "react-redux";
 import { setUserId } from "../../store/slices/user-slice"; // Update the path
-
+// import { Tab, Nav } from 'react-bootstrap';
 const LoginRegister = () => {
   const dispatch = useDispatch();
+  const [activeTab, setActiveTab] = useState('login');
 
   let { pathname } = useLocation();
   const navigate = useNavigate();
@@ -28,35 +31,40 @@ const LoginRegister = () => {
     password: "",
   });
 
-  
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
 
   const handleLoginSubmit = async (e) => {
+    console.log('hiii')
     e.preventDefault();
-  
+
     if (loginData.email === 'admin@golokait.com' && loginData.password === 'testing12345') {
       window.location.href = 'https://www.example.com';
-      return; 
+      return;
     }
     try {
-      const response = await fetch("https://padjewels.onrender.com/api/v1/auth/signin", {
+      const response = await fetch("http://localhost:8081/api/v1/auth/signin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(loginData),
       });
-  
+
       if (response.ok) {
         const userData = await response.json();
-        const userId = userData._id; 
-        const token = userData.token; 
-  
+        const userId = userData._id;
+        const token = userData.token;
+
         // Store the token in local storage
         localStorage.setItem('my-access-token-of-padjewels', token);
-  
+
         dispatch(setUserId(userId));
-  
+
         // Show a success toast
         toast.success("Login success");
         navigate("/");
@@ -84,33 +92,35 @@ const LoginRegister = () => {
         altNumber: null,
         ...registerData,
       };
-  
-      const response = await fetch("https://padjewels.onrender.com/api/v1/auth/signup", {
+
+      const response = await fetch("http://localhost:8081/api/v1/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(userDataWithDefaults),
       });
-  
+
       if (response.ok) {
-        // const userData = await response.json();
-        // const token = userData.token; // Adjust this according to your response structure
-  
-        // // Store the token in local storage
-        // localStorage.setItem('my-access-token-of-padjewels', token);
-  
+        console.log('hoi')
+        const userData = await response.json();
+        const token = userData.token;
+
+        // Store the token in local storage
+        localStorage.setItem('my-access-token-of-padjewels', token);
+
         setRegisterData({
           username: "",
           email: "",
           password: "",
         });
-  
+
         // Show a success toast
-        toast.success("Registration successful, Now please Log in");
-  
+        toast.success("Registration successful!");
+        navigate('/')
         // Redirect to the login tab
-        document.getElementById("login-tab").click(); // Trigger click event 
+        // setActiveTab('login');
+        // document.getElementById("login-tab").click(); // Trigger click event 
       } else {
         // Show an error toast
         toast.error("Registration failed. Please try again.");
@@ -157,7 +167,7 @@ const LoginRegister = () => {
             <div className="row">
               <div className="col-lg-7 col-md-12 ms-auto me-auto">
                 <div className="login-register-wrapper">
-                  <Tab.Container defaultActiveKey="login">
+                  <Tab.Container activeKey={activeTab} onSelect={setActiveTab}>
                     <Nav variant="pills" className="login-register-tab-list">
                       <Nav.Item>
                         <Nav.Link eventKey="login" id="login-tab">
@@ -175,25 +185,40 @@ const LoginRegister = () => {
                         <div className="login-form-container">
                           <div className="login-register-form">
                             <form onSubmit={handleLoginSubmit}>
-                            <label for="email">
-                              Email
-                            </label>
+                              <label for="email">
+                                Email*
+                              </label>
                               <input
                                 type="email"
                                 name="email"
                                 placeholder="Email"
                                 onChange={handleLoginInputChange}
                               />
-                              <label for="password"> Password</label>
-                              <input
-                                type="password"
-                                name="password"
-                                placeholder="Password"
-                                onChange={handleLoginInputChange}
-                              />
+                              <label for="password">Password*</label>
+                              <div style={{ position: 'relative' }}>
+                                <input
+                                  type={showPassword ? "text" : "password"}
+                                  name="password"
+                                  placeholder="Password"
+                                  onChange={handleLoginInputChange}
+                                  style={{ paddingRight: '30px' }} // Make room for the checkbox
+                                />
+                                <input
+                                  type="checkbox"
+                                  checked={showPassword}
+                                  onChange={togglePasswordVisibility}
+                                  style={{
+                                    position: 'absolute',
+                                    right: '10px',
+                                    top: '30%',
+                                    transform: 'translateY(-50%)'
+                                  }}
+                                />
+                              </div>
+
                               {/* ... (rest of the form) */}
-                              <button type="submit" className="bg-purple-400 p-2 rounded-md">
-                                <span>Login</span>
+                              <button type="submit" className="text-white bg-purple-400 p-2 rounded-md hover:bg-purple-500" onClick={handleLoginSubmit}>
+                                <span>Log in</span>
                               </button>
                             </form>
                           </div>
@@ -204,9 +229,9 @@ const LoginRegister = () => {
                         <div className="login-form-container">
                           <div className="login-register-form">
                             <form onSubmit={handleRegisterSubmit}>
-                            <label for="username">
-                              Username
-                            </label>
+                              <label for="username">
+                                Username*
+                              </label>
                               <input
                                 type="text"
                                 name="username"
@@ -215,7 +240,7 @@ const LoginRegister = () => {
                               />
 
                               <label for="email">
-                                Email
+                                Email*
                               </label>
                               <input
                                 name="email"
@@ -224,16 +249,30 @@ const LoginRegister = () => {
                                 onChange={handleRegisterInputChange}
                               />
                               <label for="password">
-                                Password
+                                Password*
                               </label>
-                              <input
-                                type="password"
-                                name="password"
-                                placeholder="Password"
-                                onChange={handleRegisterInputChange}
-                              />
+                              <div style={{ position: 'relative' }}>
+                                <input
+                                  type={showPassword ? "text" : "password"}
+                                  name="password"
+                                  placeholder="Password"
+                                  onChange={handleRegisterInputChange}
+                                  style={{ paddingRight: '30px' }} // Make room for the checkbox
+                                />
+                                <input
+                                  type="checkbox"
+                                  checked={showPassword}
+                                  onChange={togglePasswordVisibility}
+                                  style={{
+                                    position: 'absolute',
+                                    right: '10px',
+                                    top: '30%',
+                                    transform: 'translateY(-50%)'
+                                  }}
+                                />
+                              </div>
                               {/* ... (rest of the form) */}
-                              <button type="submit" className="bg-purple-400 p-2 rounded-md"> 
+                              <button type="submit" className="text-white bg-purple-400 p-2 rounded-md hover:bg-purple-500">
                                 <span>Register</span>
                               </button>
                             </form>

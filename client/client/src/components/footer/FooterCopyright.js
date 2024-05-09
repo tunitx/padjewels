@@ -17,7 +17,7 @@ const FooterCopyright = ({ footerLogo, spaceBottomClass, colorClass }) => {
           rel="noopener noreferrer"
           target="_blank"
         > */}
-          Shukra Jewellars
+          Pad Jewels
         {/* </a> */}
         .<br /> All Rights Reserved
       </p>

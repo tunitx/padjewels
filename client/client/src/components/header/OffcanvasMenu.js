@@ -18,6 +18,7 @@ const OffcanvasMenu = ({ activeState, getActiveState }) => {
         <button
           className="clickable-mainmenu-close"
           onClick={() => getActiveState(false)}
+
         >
           <span className="pe-7s-close"></span>
         </button>

@@ -18,7 +18,7 @@ const FooterOne = ({
   return (
     <footer className={clsx("footer-area", backgroundColorClass, spaceTopClass, spaceBottomClass, extraFooterClass, spaceLeftClass, spaceRightClass)}>
       <div className={`${containerClass ? containerClass : "container"}`}>
-        <div className="row">
+      <div className="row d-flex justify-content-between">
           <div
             className={`${sideMenu ? "col-xl-2 col-sm-4" : "col-lg-2 col-sm-4"
               }`}
@@ -30,8 +30,8 @@ const FooterOne = ({
             />
           </div>
           <div
-            className={`${sideMenu ? "col-xl-2 col-sm-4" : "col-lg-2 col-sm-4"
-              }`}
+            className={` row justify-content-center ${sideMenu ? "col-xl-2 col-sm-4" : "col-lg-2 col-sm-4"
+              }`} c
           >
             <div className="footer-widget mb-30 ml-30">
               <div className="footer-title">
@@ -42,11 +42,7 @@ const FooterOne = ({
                   <li>
                     <Link to={process.env.PUBLIC_URL + "/about"}>About us</Link>
                   </li>
-                  <li>
-                    <Link to={process.env.PUBLIC_URL + "#/"}>
-                      Store location
-                    </Link>
-                  </li>
+                  
                   <li>
                     <Link to={process.env.PUBLIC_URL + "/contact"}>
                       Contact
@@ -154,17 +150,8 @@ const FooterOne = ({
               </div>
             </div>
           </div>
-          <div
-            className={`${sideMenu ? "col-xl-3 col-sm-8" : "col-lg-4 col-sm-6"
-              }`}
-          >
-            {/* footer newsletter */}
-            <FooterNewsletter
-              spaceBottomClass="mb-30"
-              spaceLeftClass="ml-70"
-              sideMenu={sideMenu}
-            />
-          </div>
+         
+          <div/>
         </div>
       </div>
     </footer>

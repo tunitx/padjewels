@@ -94,8 +94,9 @@ const MenuCart = () => {
               className="default-btn"
               to={process.env.PUBLIC_URL + "/checkout"}
             >
-              checkout
+              checkout 
             </Link>
+
           </div>
         </Fragment>
       ) : (

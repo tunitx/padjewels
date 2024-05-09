@@ -21,7 +21,8 @@ export const signup = async (req, res, next) => {
     const newUser = new User({ ...req.body, password: hash });
 
     await newUser.save();
-    res.status(200).send("user created successfully!!");
+    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
+    res.status(200).json({ token : token,  message: "user created successfully!!" });
     console.log("user created successfully");
   } catch (error) {
     console.log(error);
@@ -29,6 +30,7 @@ export const signup = async (req, res, next) => {
 };
 
 export const signin = async (req, res, next) => {
+  console.log(req.body)
   try {
     const { email, password } = req.body;
 
