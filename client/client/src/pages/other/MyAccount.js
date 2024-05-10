@@ -7,7 +7,7 @@ import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import Button from "react-bootstrap/Button";
 import { selectUserId } from "../../store/slices/user-slice";
-
+import BASE_URL from "../../constants/Constants";
 const MyAccount = () => {
   let { pathname } = useLocation();
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const MyAccount = () => {
     const fetchUserData = async () => {
       try {
         const response = await fetch(
-          `https://padjewels.onrender.com/api/v1/auth/getUser/${userId}`
+          `${BASE_URL}api/v1/auth/getUser/${userId}`
         );
         if (response.ok) {
           const fetchedUserData = await response.json();
@@ -48,7 +48,7 @@ const MyAccount = () => {
       // console.log('Updating account information with payload:', JSON.stringify(userData));
 
       const response = await fetch(
-        `https://padjewels.onrender.com/api/v1/auth/updUser/${userId}`,
+        `${BASE_URL}api/v1/auth/updUser/${userId}`,
         {
           method: "PUT",
           headers: {

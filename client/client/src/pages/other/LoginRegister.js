@@ -12,6 +12,7 @@ import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUserId } from "../../store/slices/user-slice"; // Update the path
+import BASE_URL from '../../constants/Constants';
 // import { Tab, Nav } from 'react-bootstrap';
 const LoginRegister = () => {
   const dispatch = useDispatch();
@@ -47,7 +48,7 @@ const LoginRegister = () => {
       return;
     }
     try {
-      const response = await fetch("https://padjewels.onrender.com/api/v1/auth/signin", {
+      const response = await fetch(`${BASE_URL}api/v1/auth/signin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -93,7 +94,7 @@ const LoginRegister = () => {
         ...registerData,
       };
 
-      const response = await fetch("https://padjewels.onrender.com/api/v1/auth/signup", {
+      const response = await fetch(`${BASE_URL}api/v1/auth/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

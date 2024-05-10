@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { setActiveSort } from "../../helpers/product";
 import axios from "axios";
+import BASE_URL from "../../constants/Constants";
 
 const ShopCategories = ({ getSortParams }) => {
   
@@ -12,7 +13,7 @@ const ShopCategories = ({ getSortParams }) => {
   const fetchCategoriesFromApi = async () => {
     try {
       const response = await axios.get(
-        "https://padjewels.onrender.com/api/v1/product/cat"
+        `${BASE_URL}api/v1/product/cat`
       );
       setCategories(response.data);
       console.log(response.data);

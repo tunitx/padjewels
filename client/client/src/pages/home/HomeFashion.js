@@ -4,6 +4,7 @@ import LayoutOne from "../../layouts/LayoutOne";
 import HeroSliderOne from "../../wrappers/hero-slider/HeroSliderOne";
 import FeatureIcon from "../../wrappers/feature-icon/FeatureIcon";
 import TabProduct from "../../wrappers/product/TabProduct";
+import AboutBanner from "../../wrappers/banner/AboutBanner";
 // import BlogFeatured from "../../wrappers/blog-featured/BlogFeatured";
 
 const HomeFashion = () => {
@@ -25,6 +26,7 @@ const HomeFashion = () => {
 
         {/* tab product */}
         <TabProduct spaceBottomClass="pb-60" category="fashion" />
+        <AboutBanner/>
 
         {/* blog featured */}
         {/* <BlogFeatured spaceBottomClass="pb-55" /> */}

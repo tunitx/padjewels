@@ -11,6 +11,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { deleteAllFromCart } from "../../store/slices/cart-slice";
 import Swal from 'sweetalert2';
+import BASE_URL from "../../constants/Constants";
 
 // import dotenv from "dotenv";
 
@@ -26,14 +27,14 @@ const Checkout = () => {
   const [billingDetails, setBillingDetails] = useState({
     firstName: "",
     lastName: "",
-    companyName: "",
-    country: "",
+    companyName: "devhef",
+    country: "india",
     streetAddress: "",
     apartment: "",
     city: "",
     state: "",
     postcode: "",
-    phone: "",
+    phone: " ",
     email: "",
     orderNotes: "",
   });
@@ -46,7 +47,7 @@ const Checkout = () => {
   };
   const validateForm = () => {
     for (let field in billingDetails) {
-      if (!billingDetails[field]) {
+      if (field != 'orderNotes' && !billingDetails[field]) {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
@@ -106,7 +107,7 @@ const Checkout = () => {
       products: cartItems,
       user: user.userId,
       address: address,
-      phoneNumber: billingDetails.phoneNumber,
+      phoneNumber: billingDetails.phone,
       paymentOption: "COD",
       amount: cartTotalPrice.toFixed(2),
     };
@@ -119,7 +120,7 @@ const Checkout = () => {
       // Handle COD payment
       try {
         const response = await axios.post(
-          "https://padjewels.onrender.com/api/v1/order/generateorder",
+          `${BASE_URL}api/v1/order/generateorder`,
           {
             products: cartItems,
             user: user.userId,
@@ -148,7 +149,7 @@ const Checkout = () => {
       // Handle online payment
       try {
         const response = await axios.post(
-          "https://padjewels.onrender.com/api/v1/order/generateorder",
+          `${BASE_URL}api/v1/order/generateorder`,
           {
             products: cartItems,
             user: user.userId,

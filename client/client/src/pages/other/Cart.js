@@ -13,6 +13,7 @@ import {
 } from "../../store/slices/cart-slice";
 import { cartItemStock } from "../../helpers/product";
 import { selectUserId } from "../../store/slices/user-slice";
+import BASE_URL from "../../constants/Constants";
 
 const Cart = () => {
   let cartTotalPrice = 0;
@@ -30,7 +31,7 @@ const Cart = () => {
     try {
       // console.log(cartItemId, userId);
       const response = await fetch(
-        `https://padjewels.onrender.com/api/v1/carts/cart/remove-item/${userId}/${cartItemId1}`,
+        `${BASE_URL}api/v1/carts/cart/remove-item/${userId}/${cartItemId1}`,
         {
           method: "DELETE",
           headers: {
