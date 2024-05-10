@@ -3,6 +3,9 @@ import { useLocation } from "react-router-dom";
 import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import Logo from "../../components/header/Logo";
+
+import FooterCopyright from "../../components/footer/FooterCopyright";
 
 const About = () => {
   let { pathname } = useLocation();
@@ -21,14 +24,23 @@ const About = () => {
             { label: "About us", path: process.env.PUBLIC_URL + pathname }
           ]}
         />
-
-        <div className="w-full h-full flex flex-col items-center justify-center gap-y-10 my-16">
+ 
+        <div className="w-full h-full flex flex-col items-center justify-center gap-y-8 mb-16">
+        <div className="relative left-10 w-[400px] h-[400px] top-4">
+        <FooterCopyright
+              footerLogo="/assets/img/logo/logo-2.jpg"
+              className = 'relative bottom-18'
+            />
+        </div>
+        
           {/* about section */}
-          <div className="w-[80%] h-auto flex flex-col justify-center items-center space-y-6 ">
+          <div className="w-[90%] h-auto flex flex-col justify-center items-center space-y-6 ">
             <h1 className="text-3xl underline  hover:cursor-pointer ">
               About Us
 
             </h1>
+           
+            
             <div className="w-full h-full  bg-gray-100 rounded-lg flex flex-col justify-center items-center py-6 px-4">
               <div className="w-[100%] h-[100%] ">
               <p className="text-lg  hover:cursor-pointer">
@@ -40,7 +52,7 @@ const About = () => {
            
           </div>
           {/* our mission */}
-          <div className="w-[80%] h-auto flex flex-col justify-center items-center  space-y-6"  >
+          <div className="w-[90%] h-auto flex flex-col justify-center items-center  space-y-6"  >
             <h1 className="text-3xl underline hover:cursor-pointer">
               Our Mission
 
@@ -58,7 +70,7 @@ const About = () => {
             </div>
           </div>
           {/* our approach */}
-          <div className="w-[80%] h-auto flex flex-col justify-center items-center  space-y-6">
+          <div className="w-[90%] h-auto flex flex-col justify-center items-center  space-y-6">
             <h1 className="text-3xl underline hover:cursor-pointer">
               Our Approach
             </h1>

@@ -7,9 +7,14 @@ import { getDiscountPrice } from "../../helpers/product";
 import Rating from "./sub-components/ProductRating";
 import ProductModal from "./ProductModal";
 import { addToCart } from "../../store/slices/cart-slice";
+import { selectWishlistItems } from "../../store/slices/wishlist-slice";
 import { addToWishlist } from "../../store/slices/wishlist-slice";
 import { addToCompare } from "../../store/slices/compare-slice";
+import heart from '../../assets/heart (4).png'
+import heart2 from '../../assets/heart (5).png'
+import { useSelector } from 'react-redux';
 
+import { useEffect } from "react";
 const ProductGridListSingle = ({
   product,
   currency,
@@ -19,6 +24,10 @@ const ProductGridListSingle = ({
   spaceBottomClass,
 }) => {
   const [modalShow, setModalShow] = useState(false);
+
+
+
+  
   // const discountedPrice = getDiscountPrice(product.price, product.discount);
   const finalProductPrice = +(product?.mrpPrice).toFixed(2);
   // const finalDiscountedPrice = +(
@@ -27,6 +36,23 @@ const ProductGridListSingle = ({
   const dispatch = useDispatch();
   const [activeProduct, setActiveProduct] = useState(null);
   const [activeWishlist, setActiveWishlist] = useState(null);
+
+  const wishlistItems = useSelector(selectWishlistItems);
+
+  useEffect(() => {
+    const wishlistItem = wishlistItems.find(item => item._id === product._id);
+    if (wishlistItem) {
+      setActiveWishlist(product._id);
+    }
+  }, [wishlistItems, product._id]);
+  
+
+// useEffect(() => {
+//   const wishlistItem = wishlistItems.find(item => item._id === product._id);
+//   if (wishlistItem) {
+//     setActiveWishlist(product._id);
+//   }
+// }, []);
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
@@ -37,7 +63,7 @@ const ProductGridListSingle = ({
     dispatch(addToWishlist(product));
     setActiveWishlist(product._id);
   };
-  
+
   return (
     <Fragment>
       <div className={clsx("product-wrap", spaceBottomClass)}>
@@ -282,7 +308,11 @@ const ProductGridListSingle = ({
                     }
                     onClick={() => handleAddToWishlist(product)}
                   >
-                    <i className="pe-7s-like" />
+                    <img
+                      src={activeWishlist === product._id ? heart : heart2}
+                      alt=""
+                      className="wishlist-icon"
+                    />
                   </button>
                 </div>
               </div>

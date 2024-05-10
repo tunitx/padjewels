@@ -3,13 +3,12 @@ import clsx from "clsx";
 
 const SectionTitleForRefundPolicy = ({ spaceTopClass, spaceBottomClass }) => {
     return (
-        <div className={clsx("welcome-area", spaceTopClass, spaceBottomClass)}>
-            <div className="container">
-                <div className="welcome-content text-center">
-                    <h5>Refund Policy</h5>
-                    <h1>Introduction</h1>
-                    <p>
-                        Please read this Policy carefully, as it forms a binding agreement between you and [website name]. If you do not accept this Policy in its entirety, then you may not purchase our products or place an order with us. By placing an order with us or by clicking on a button or taking similar action to signify your affirmative acceptance of this Policy, you hereby represent that:
+        <div className={clsx("welcome-are", spaceTopClass, spaceBottomClass)}>
+            <div className="container w-[100%]">
+                <div className=" text-center w-full">
+                    <h1 className="underline">Refund Policy</h1>
+                    <p className="">
+                        Please read this Policy carefully, as it forms a binding agreement between you and Pad Jewels. If you do not accept this Policy in its entirety, then you may not purchase our products or place an order with us. By placing an order with us or by clicking on a button or taking similar action to signify your affirmative acceptance of this Policy, you hereby represent that:
                     </p>
                     <br />
                     <p>
@@ -25,7 +24,7 @@ const SectionTitleForRefundPolicy = ({ spaceTopClass, spaceBottomClass }) => {
                         We must not have previously disabled your account for violation of law or any of our policies.
                     </p>
                     <br />
-                    <h1>Return & Refund Policy
+                    <h1 className="underline">Return & Refund Policy
                     </h1>
                     <p className="mb-12"> 
                         In case of returning the order , return request should be initiated within 24 hours of receiving the order. Unboxing video is must for returning the product or your return request will be denied.

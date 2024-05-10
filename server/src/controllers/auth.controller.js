@@ -7,14 +7,20 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
 dotenv.config();
-
 export const signup = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      throw new CustomError("User already exist", 400);
+    const { email, password, username } = req.body;
+    const existingUserByEmail = await User.findOne({ email });
+    const existingUserByUsername = await User.findOne({ username });
+
+    if (existingUserByEmail) {
+      return res.status(400).json({ message: "Email already exists" });
     }
+
+    if (existingUserByUsername) {
+      return res.status(400).json({ message: "Username already exists" });
+    }
+
     var salt = bcrypt.genSaltSync(10);
     var hash = bcrypt.hashSync(password, salt);
 
@@ -22,37 +28,33 @@ export const signup = async (req, res, next) => {
 
     await newUser.save();
     const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
-    res.status(200).json({ token : token,  message: "user created successfully!!" });
-    console.log("user created successfully");
+    res.status(200).json({ token : token,  message: "User created successfully!!" });
+    console.log("User created successfully");
   } catch (error) {
     console.log(error);
+    next(error);
   }
 };
 
 export const signin = async (req, res, next) => {
-  console.log(req.body)
   try {
     const { email, password } = req.body;
 
     // validation
     if (!email || !password) {
-      throw new CustomError("Please fill all the fields", 400);
+      return res.status(400).json({ message: "Please fill all the fields" });
     }
 
     const user = await User.findOne({ email });
 
     if (!user) {
-      throw new CustomError("Invalid credentials", 400);
+      return res.status(400).json({ message: "Email doesn't exist" });
     }
-
-    // if (!user) return next(createError(404, "User not found!!"));
-    // console.log(user);
 
     const pass = await bcrypt.compare(password, user.password);
     if (!pass) {
-      throw new CustomError("Invalid credentials", 400);
+      return res.status(400).json({ message: "Invalid password" });
     }
-    // if (!pass) return next(createError(400, "Wrong Credentials"));
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
     const { ...otherDetails } = user._doc;
@@ -62,10 +64,10 @@ export const signin = async (req, res, next) => {
       .status(200)
       .json({ token, ...otherDetails });
   } catch (error) {
+    console.log(error);
     next(error);
   }
 };
-
 export const logout = asyncHandler(async (req, res) => {
   res.cookie("token", null, {
     expires: new Date(Date.now()),

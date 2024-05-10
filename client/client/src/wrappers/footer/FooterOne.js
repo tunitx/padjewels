@@ -85,9 +85,7 @@ const FooterOne = ({
                       Terms and Conditions
                     </Link>
                   </li>
-                  <li>
-                    <Link to={process.env.PUBLIC_URL + "#/"}>Size guide</Link>
-                  </li>
+
                   <li>
                     <Link to={process.env.PUBLIC_URL + "/faq"}>FAQs</Link>
                   </li>
@@ -119,15 +117,7 @@ const FooterOne = ({
                       Facebook
                     </a>
                   </li>
-                  <li>
-                    <a
-                      href="//www.twitter.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Twitter
-                    </a>
-                  </li>
+
                   <li>
                     <a
                       href="//www.instagram.com"

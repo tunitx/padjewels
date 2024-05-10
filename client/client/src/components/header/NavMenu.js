@@ -32,6 +32,8 @@ const NavMenu = ({
               {/* <i className="fa fa-angle-down" /> */}
               {/* )} */}
             </Link>
+            
+           
             {/* <ul className="mega-menu mega-menu-padding"> */}
             {/* <li> */}
             {/* <ul> */}
@@ -401,6 +403,20 @@ const NavMenu = ({
                 </ul>
               </li> */}
             {/* </ul> */}
+          </li>
+
+          <li>
+          <Link to={process.env.PUBLIC_URL + "/about"}>
+              {" "}
+              {t("About us")}
+              {/* {sidebarMenu ? (
+                <span>
+                  <i className="fa fa-angle-right"></i>
+                </span>
+              ) : (
+                <i className="fa fa-angle-down" />
+              )} */}
+            </Link>
           </li>
 
 

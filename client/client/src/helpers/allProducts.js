@@ -7,8 +7,10 @@ const fetchData = async () => {
             "https://padjewels.onrender.com/api/v1/product"
         );
         const items = response?.data;
+        console.log(items);
         // setCurrentProduct(items);
         return items
+      
     } catch (error) {
         console.log(error);
     }

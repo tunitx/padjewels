@@ -5,10 +5,16 @@ import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 import MenuCart from "./sub-components/MenuCart";
 import { toast } from 'react-toastify';
-
+import 'react-toastify/dist/ReactToastify.css';
 import { useState } from "react";
+import { useDispatch } from 'react-redux';
+import { deleteAllFromWishlist } from "../../store/slices/wishlist-slice";
+import { deleteAllFromCart } from "../../store/slices/cart-slice";
+
+
 
 const IconGroup = ({ iconWhiteClass, sidebarMenu, menuWhiteClass }) => {
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const handleClick = e => {
     e.currentTarget.nextSibling.classList.toggle("active");
@@ -35,6 +41,9 @@ const IconGroup = ({ iconWhiteClass, sidebarMenu, menuWhiteClass }) => {
     localStorage.removeItem('my-access-token-of-padjewels');
     setToken(null); // Update the token state
     toast.success("Signed out successfully");
+    dispatch(deleteAllFromCart());
+    dispatch(deleteAllFromWishlist());
+    // dispatch(resetWishlist());
   };
 
   return (
@@ -46,7 +55,7 @@ const IconGroup = ({ iconWhiteClass, sidebarMenu, menuWhiteClass }) => {
       
 
 
-        <div className="same-style header-search d-none d-lg-block">
+        {/* <div className="same-style header-search d-none d-lg-block">
           <button className="search-active" onClick={e => handleClick(e)}>
             <i className="pe-7s-search" />
           </button>
@@ -58,7 +67,7 @@ const IconGroup = ({ iconWhiteClass, sidebarMenu, menuWhiteClass }) => {
               </button>
             </form>
           </div>
-        </div>
+        </div> */}
         <div className="same-style account-setting d-none d-lg-block">
           <button
             className="account-setting-active"
@@ -89,6 +98,11 @@ const IconGroup = ({ iconWhiteClass, sidebarMenu, menuWhiteClass }) => {
                   <li>
                     <Link to={process.env.PUBLIC_URL + "/"} onClick={handleSignOut}>
                       Sign Out
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to={process.env.PUBLIC_URL + "/orders"} >
+                      Orders
                     </Link>
                   </li>
                 </>

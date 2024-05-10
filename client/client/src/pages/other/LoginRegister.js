@@ -43,7 +43,7 @@ const LoginRegister = () => {
     e.preventDefault();
 
     if (loginData.email === 'admin@golokait.com' && loginData.password === 'testing12345') {
-      window.location.href = 'https://www.example.com';
+      window.location.href = 'https://padjewels.vercel.app/';
       return;
     }
     try {
@@ -68,9 +68,9 @@ const LoginRegister = () => {
         // Show a success toast
         toast.success("Login success");
         navigate("/");
-      } else {
-        // Show an error toast
-        toast.error("Login failed");
+      }  else {
+        const errorData = await response.json();
+        toast.error(errorData.message || "Login failed");
       }
     } catch (error) {
       console.error("Error during login:", error);
@@ -122,8 +122,8 @@ const LoginRegister = () => {
         // setActiveTab('login');
         // document.getElementById("login-tab").click(); // Trigger click event 
       } else {
-        // Show an error toast
-        toast.error("Registration failed. Please try again.");
+        const errorData = await response.json();
+        toast.error(errorData.message || "Registration failed. Please try again.");
       }
     } catch (error) {
       console.error("Error during registration:", error);

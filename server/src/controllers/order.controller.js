@@ -9,6 +9,7 @@ import generateOrderId from "../utils/generateOrderId.js";
 import User from "../models/user.schema.js";
 
 export const generateOrder = asyncHandler(async (req, res) => {
+  // console.log(req.body)
   const { products, user, address, phoneNumber, paymentOption, amount } =
     req.body;
     // console.log(req.body.prod)
@@ -18,6 +19,7 @@ export const generateOrder = asyncHandler(async (req, res) => {
   // }
   console.log(products, user, address, phoneNumber, paymentOption, amount);
   if (!products || products.length === 0) {
+    console.log('1st error')
     throw new CustomError("No product found", 400);
   }
 
@@ -30,9 +32,11 @@ export const generateOrder = asyncHandler(async (req, res) => {
       const productFromDb = await Product.findById(_id);
 
       if (!productFromDb) {
+        console.log('second error')
         throw new CustomError("No product found", 400);
       }
       if (productFromDb.stockQuantity < stockQuantity) {
+        console.log('third error')
         return res.status(400).json({
           error: "Product quantity not in stock",
         });
@@ -45,6 +49,7 @@ export const generateOrder = asyncHandler(async (req, res) => {
 
   if (paymentOption === "ONLINE") {
     if (!products || !address || !phoneNumber) {
+      console.log('5th error')
       throw new CustomError("Details for order are incomplete.", 400);
     } else {
       console.log(totalAmount);
@@ -73,7 +78,10 @@ export const generateOrder = asyncHandler(async (req, res) => {
     }
   } else {
     if (!products || !user || !address || !phoneNumber || !amount) {
+      console.log('6th error')
+      
       throw new CustomError("Details for order are incomplete.", 400);
+
     } else {
       console.log(products)
       const orderId = `COD-${uuidv4()}`;

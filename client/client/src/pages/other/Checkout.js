@@ -10,6 +10,7 @@ import cogoToast from "cogo-toast";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { deleteAllFromCart } from "../../store/slices/cart-slice";
+import Swal from 'sweetalert2';
 
 // import dotenv from "dotenv";
 
@@ -21,7 +22,7 @@ const Checkout = () => {
   const { cartItems } = useSelector((state) => state.cart);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [paymentMethod, setPaymentMethod] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("ONLINE");
   const [billingDetails, setBillingDetails] = useState({
     firstName: "",
     lastName: "",
@@ -37,6 +38,34 @@ const Checkout = () => {
     orderNotes: "",
   });
 
+  const formatFieldName = (fieldName) => {
+    return fieldName
+      .replace(/([A-Z])/g, ' $1') // insert a space before all capital letters
+      .toLowerCase() // convert all letters to lowercase
+      .replace(/^./, (str) => str.toUpperCase()); // capitalize the first letter
+  };
+  const validateForm = () => {
+    for (let field in billingDetails) {
+      if (!billingDetails[field]) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: `Please fill in the ${formatFieldName(field)}  before placing your order.`,
+        });
+        return false;
+      }
+    }
+    if (!paymentMethod) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Please select a payment method before placing your order.',
+      });
+      return false;
+    }
+    return true;
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     console.log(name, value);
@@ -50,8 +79,11 @@ const Checkout = () => {
     setPaymentMethod(e.target.value);
   };
 
+
   const handleCheckout = async (e) => {
-    e.preventDefault();
+    console.log("jjjjjjj")
+    // e.preventDefault();
+    if (e) e.preventDefault();
 
     const address =
       billingDetails.apartment +
@@ -109,6 +141,10 @@ const Checkout = () => {
         cogoToast.error("Failed to place order. Please try again.");
       }
     } else if (paymentMethod === "ONLINE") {
+      cogoToast.success("Order placed successfully!");
+      dispatch(deleteAllFromCart());
+      navigate("/orders");
+      return
       // Handle online payment
       try {
         const response = await axios.post(
@@ -180,7 +216,7 @@ const Checkout = () => {
           navigate("/orders");
         }
       } catch (error) {
-        console.error("Error placing order:", error);
+        console.log("Error placing order:", error);
         cogoToast.error("Failed to place order. Please try again.");
       }
     } else {
@@ -188,6 +224,24 @@ const Checkout = () => {
     }
   };
 
+  const confirmAndCheckout = async () => {
+    if (!validateForm()) {
+      return;
+    }
+
+    const result = await Swal.fire({
+      title: 'Order confirmation',
+      text: 'Are you sure you want to proceed the payment ',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, proceed!',
+      cancelButtonText: 'No, cancel!'
+    });
+
+    if (result.isConfirmed) {
+      handleCheckout();
+    }
+  };
   return (
     <Fragment>
       <SEO
@@ -360,9 +414,9 @@ const Checkout = () => {
 
                               discountedPrice != null
                                 ? (cartTotalPrice +=
-                                    finalDiscountedPrice * cartItem.quantity)
+                                  finalDiscountedPrice * cartItem.quantity)
                                 : (cartTotalPrice +=
-                                    finalProductPrice * cartItem.quantity);
+                                  finalProductPrice * cartItem.quantity);
                               return (
                                 <li key={key}>
                                   <span className="order-middle-left">
@@ -371,14 +425,14 @@ const Checkout = () => {
                                   <span className="order-price">
                                     {discountedPrice !== null
                                       ? currency.currencySymbol +
-                                        (
-                                          finalDiscountedPrice *
-                                          cartItem.quantity
-                                        ).toFixed(2)
+                                      (
+                                        finalDiscountedPrice *
+                                        cartItem.quantity
+                                      ).toFixed(2)
                                       : currency.currencySymbol +
-                                        (
-                                          finalProductPrice * cartItem.quantity
-                                        ).toFixed(2)}
+                                      (
+                                        finalProductPrice * cartItem.quantity
+                                      ).toFixed(2)}
                                   </span>
                                 </li>
                               );
@@ -404,30 +458,39 @@ const Checkout = () => {
                       <div className="payment-method">
                         <h4>Payment Method</h4>
                         <div className="payment-method-form">
-                          <input
-                            type="radio"
-                            id="online-payment"
-                            name="payment-method"
-                            value="ONLINE"
-                            className="inline-block h-[10]"
-                            onChange={handlePaymentMethodChange}
-                          />
-                          <label htmlFor="online-payment">Online Payment</label>
+                          <div className="my-2">
+                            <input
 
-                          <input
-                            type="radio"
-                            id="cod"
-                            name="payment-method"
-                            value="COD"
-                            className="inline-block"
-                            onChange={handlePaymentMethodChange}
-                          />
-                          <label htmlFor="cod">Cash on Delivery (COD)</label>
+                              type="radio"
+                              id="online-payment"
+                              name="payment-method"
+                              value="ONLINE"
+                              className=" inline-block mx-1"
+                              style={{ height: '15px', width: '15px' }} // Adjust size here
+                              onChange={handlePaymentMethodChange}
+                              defaultChecked // Make this the default option
+                            />
+                            <label htmlFor="online-payment " >Online Payment</label>
+                          </div>
+
+                          <div>
+                            <input
+                              type="radio"
+                              id="cod"
+                              name="payment-method"
+                              value="COD"
+                              className="inline-block mx-1"
+                              style={{ height: '15px', width: '15px' }} // Adjust size here
+                              onChange={handlePaymentMethodChange}
+                            />
+                            <label htmlFor="cod">Cash on Delivery (COD)</label>
+                          </div>
+
                         </div>
                       </div>
                     </div>
                     <div className="place-order mt-25">
-                      <button className="btn-hover" onClick={handleCheckout}>
+                      <button className="btn-hover" onClick={confirmAndCheckout}>
                         Place Order
                       </button>
                     </div>

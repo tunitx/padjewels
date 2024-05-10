@@ -34,4 +34,5 @@ const wishlistSlice = createSlice({
 
 export const { addToWishlist, deleteFromWishlist, deleteAllFromWishlist } =
   wishlistSlice.actions;
+  export const selectWishlistItems = (state) => state.wishlist.wishlistItems;
 export default wishlistSlice.reducer;

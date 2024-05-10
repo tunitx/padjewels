@@ -17,6 +17,7 @@ const Wishlist = () => {
 
   const currency = useSelector((state) => state.currency);
   const { wishlistItems } = useSelector((state) => state.wishlist);
+  console.log(wishlistItems)
   const { cartItems } = useSelector((state) => state.cart);
 
   console.log(wishlistItems);
@@ -54,19 +55,20 @@ const Wishlist = () => {
                         </thead>
                         <tbody>
                           {wishlistItems.map((wishlistItem, key) => {
+                            const cartItem = cartItems.find(
+                              (item) => item._id === wishlistItem._id
+                            );
                             const discountedPrice = getDiscountPrice(
-                              wishlistItem.price,
+                              wishlistItem.mrpPrice,
                               wishlistItem.discount
                             );
                             const finalProductPrice = (
-                              wishlistItem.price * currency.currencyRate
+                              wishlistItem.mrpPrice * currency.currencyRate
                             ).toFixed(2);
                             const finalDiscountedPrice = (
                               discountedPrice * currency.currencyRate
                             ).toFixed(2);
-                            const cartItem = cartItems.find(
-                              (item) => item.id === wishlistItem.id
-                            );
+
                             return (
                               <tr key={key}>
                                 <td className="product-thumbnail">
@@ -141,17 +143,24 @@ const Wishlist = () => {
                                     wishlistItem.stockQuantity > 0 ? (
                                     <button
                                       onClick={() =>
-                                        dispatch(addToCart(wishlistItem))
+                                        dispatch(addToCart({
+                                          _id: wishlistItem._id,
+                                          productName: wishlistItem.productName,
+                                          mrpPrice: wishlistItem.mrpPrice,
+                                          discount: wishlistItem.discount,
+                                          photos: wishlistItem.photos,
+                                          affiliateLink: wishlistItem.affiliateLink,
+                                          variation: wishlistItem.variation,
+                                          stockQuantity: wishlistItem.stockQuantity
+                                        }))
                                       }
                                       className={
-                                        cartItem !== undefined &&
-                                        cartItem.stockQuantity > 0
+                                        cartItem !== undefined && cartItem._id === wishlistItem._id && cartItem.stockQuantity > 0
                                           ? "active"
                                           : ""
                                       }
                                       disabled={
-                                        cartItem !== undefined &&
-                                        cartItem.stockQuantity > 0
+                                        cartItem !== undefined && cartItem._id === wishlistItem._id && cartItem.stockQuantity > 0
                                       }
                                       title={
                                         wishlistItem !== undefined
@@ -159,8 +168,7 @@ const Wishlist = () => {
                                           : "Add to cart"
                                       }
                                     >
-                                      {cartItem !== undefined &&
-                                      cartItem.stockQuantity > 0
+                                      {cartItem !== undefined && cartItem._id === wishlistItem._id && cartItem.stockQuantity > 0
                                         ? "Added"
                                         : "Add to cart"}
                                     </button>
