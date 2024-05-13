@@ -28,6 +28,7 @@ import "./assets/styles/responsive.css";
 import Product from "./pages/Product";
 import SalesReportPage from "./pages/Sales";
 import Category from "./pages/Category";
+import Coupon from "./pages/Coupons";
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
           <Route exact path="/orders" component={Orders} />
           <Route exact path="/payment" component={PaymentChange} />
           <Route exact path="/carts" component={Carts} />
+          <Route exact path="/coupon" component={Coupon} />
           {/* <Redirect from="*" to="/dashboard" /> */}
         </Main>
       </Switch>

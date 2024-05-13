@@ -10,8 +10,10 @@ import User from "../models/user.schema.js";
 
 export const generateOrder = asyncHandler(async (req, res) => {
   // console.log(req.body)
-  const { products, user, address, phoneNumber, paymentOption, amount } =
+  const { products, user, address, phoneNumber, paymentOption, amount, firstName, lastName } =
     req.body;
+    console.log(req.body)
+    // return;
     // console.log(req.body.prod)
   // const userId = await User.findById(user);
   // if (!userId) {
@@ -28,7 +30,7 @@ export const generateOrder = asyncHandler(async (req, res) => {
   let productPriceCalculation = Promise.all(
     products.map(async (product) => {
       // console.log(product);
-      const { _id, stockQuantity } = product;
+      const { _id, stockQuantity, quantity } = product;
       const productFromDb = await Product.findById(_id);
 
       if (!productFromDb) {
@@ -42,7 +44,7 @@ export const generateOrder = asyncHandler(async (req, res) => {
         });
       }
 
-      totalAmount += productFromDb.mrpPrice * stockQuantity;
+      totalAmount += productFromDb.mrpPrice * quantity;
     })
   );
   await productPriceCalculation;
@@ -62,6 +64,8 @@ export const generateOrder = asyncHandler(async (req, res) => {
       const orderId = await generateOrderId(options);
       console.log(orderId);
       const paidOrder = await Order.create({
+        firstName : firstName,
+        lastName : lastName,
         address: address,
         user: user,
         product: products,
@@ -86,6 +90,8 @@ export const generateOrder = asyncHandler(async (req, res) => {
       console.log(products)
       const orderId = `COD-${uuidv4()}`;
       const unpaidOrder = await Order.create({
+        firstName: firstName,
+        lastName: lastName,
         address: address,
         user: user,
         product: products,

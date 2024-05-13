@@ -91,15 +91,16 @@ const TrackOrder = ({ order }) => {
   ];
 
   const dataSource = order.product.map((product) => ({
-    key: product.productId,
-    product: product.productId,
-    count: product.count,
-    price: product.price.toFixed(2),
+    key: product.product_id,
+    product: product.productName,
+    count: product.quantity,
+    price: product.mrpPrice.toFixed(2),
   }));
 
   const total = order.product
-    .reduce((acc, product) => acc + product.price * product.count, 0)
+    .reduce((acc, product) => acc + product.mrpPrice * product.quantity, 0)
     .toFixed(2);
+    console.log(dataSource)
 
   return (
     <div className="flex flex-col md:flex-row overflow-y-auto">
@@ -160,7 +161,7 @@ const TrackOrder = ({ order }) => {
               Shipping Address
             </h4>
             <p className="text-sm">
-              <span className="font-bold">Name:</span> {order.user}
+            <span className="font-bold">Name:</span> {`${order.firstName} ${order.lastName}`}
             </p>
             <p className="text-sm">
               <span className="font-bold">Address:</span> {order.address}

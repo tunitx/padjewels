@@ -5,7 +5,7 @@ import { DollarCircleOutlined, TransactionOutlined, CheckCircleOutlined, CarOutl
 const { Meta } = Card;
 
 const OrderInfo = ({ order }) => {
-  const { paymentOption, transactionId, paymentStatus, _id, createdAt } = order;
+  const { paymentOption, transactionId, paymentStatus,  createdAt, _id } = order;
 
   return (
     <div className="my-6">
@@ -24,8 +24,9 @@ const OrderInfo = ({ order }) => {
             ]}
           >
             <Meta title={`Payment Option: ${paymentOption}`} />
-            <Meta title={`Transaction ID: ${transactionId}`} />
-            <Meta title={`Payment Status: ${paymentStatus}`} />
+            <Meta title={`Order ID: ${_id}`} />
+
+            <Meta title={`Payment Status: ${paymentOption === 'COD' ? 'Pending(COD)' : 'Prepaid'}`} />
           </Card>
         </Col>
 

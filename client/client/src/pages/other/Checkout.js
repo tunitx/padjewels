@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getDiscountPrice } from "../../helpers/product";
@@ -16,7 +16,7 @@ import BASE_URL from "../../constants/Constants";
 // import dotenv from "dotenv";
 
 const Checkout = () => {
-  let cartTotalPrice = 0;
+  // let cartTotalPrice = 0;
   let { pathname } = useLocation();
   const currency = useSelector((state) => state.currency);
   const user = useSelector((state) => state.user);
@@ -24,6 +24,10 @@ const Checkout = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [paymentMethod, setPaymentMethod] = useState("ONLINE");
+  const [cartTotalPrice, setCartTotalPrice] = useState(0);
+  const [couponApplied, setCouponApplied] = useState(false)
+  const [coupon, setCoupon] = useState("");
+
   const [billingDetails, setBillingDetails] = useState({
     firstName: "",
     lastName: "",
@@ -104,6 +108,8 @@ const Checkout = () => {
       return;
     }
     const obj = {
+      firstName: billingDetails.firstName,
+      lastName: billingDetails.lastName,
       products: cartItems,
       user: user.userId,
       address: address,
@@ -122,6 +128,8 @@ const Checkout = () => {
         const response = await axios.post(
           `${BASE_URL}api/v1/order/generateorder`,
           {
+            firstName: billingDetails.firstName,
+            lastName: billingDetails.lastName,
             products: cartItems,
             user: user.userId,
             address: address,
@@ -243,6 +251,59 @@ const Checkout = () => {
       handleCheckout();
     }
   };
+  const handleApplyCoupon = async (event) => {
+    event.preventDefault();
+  
+    try {
+      const response = await fetch(`${BASE_URL}api/v1/carts/cart/coupon/${coupon}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error(`Failed to fetch coupon: ${errorData.message}`);
+        cogoToast.error('Coupon code invalid', { position: 'bottom-left' });
+        return;
+      }
+  
+      const couponData = await response.json();
+  
+      // Apply the coupon to the cart
+      if (couponData.couponType === '%') {
+        // If the coupon is a percentage discount, calculate the discount
+        const discount = cartTotalPrice * (couponData.cost / 100);
+        setCartTotalPrice(cartTotalPrice - discount);
+      } else if (couponData.couponType === 'Rs') {
+        // If the coupon is a fixed amount discount, subtract it from the total price
+        setCartTotalPrice(cartTotalPrice - couponData.cost);
+      }
+      cogoToast.success('Coupon applied successfully', { position: 'bottom-left' });
+      setCouponApplied(true);
+  
+    } catch (error) {
+      console.error("Error in API request:", error);
+    }
+  };
+
+  useEffect(() => {
+    let total = 0;
+  
+    cartItems.forEach((cartItem) => {
+      const discountedPrice = getDiscountPrice(cartItem.mrpPrice, cartItem.discount);
+      const finalProductPrice = (cartItem.mrpPrice * currency.currencyRate).toFixed(2);
+      const finalDiscountedPrice = (discountedPrice * currency.currencyRate).toFixed(2);
+  
+      total += discountedPrice != null
+        ? finalDiscountedPrice * cartItem.quantity
+        : finalProductPrice * cartItem.quantity;
+    });
+  
+    setCartTotalPrice(total);
+  }, [cartItems, currency]);
+
   return (
     <Fragment>
       <SEO
@@ -413,11 +474,11 @@ const Checkout = () => {
                                 discountedPrice * currency.currencyRate
                               ).toFixed(2);
 
-                              discountedPrice != null
+                              {/* discountedPrice != null
                                 ? (cartTotalPrice +=
                                   finalDiscountedPrice * cartItem.quantity)
                                 : (cartTotalPrice +=
-                                  finalProductPrice * cartItem.quantity);
+                                  finalProductPrice * cartItem.quantity); */}
                               return (
                                 <li key={key}>
                                   <span className="order-middle-left">
@@ -456,6 +517,26 @@ const Checkout = () => {
                           </ul>
                         </div>
                       </div>
+
+                      <div className="w-full h-full">
+                    <div className="discount-code-wrapper">
+                      <div className="title-wrap">
+                        <h4 className="cart-bottom-title section-bg-gray">
+                          Use Coupon Code
+                        </h4>
+                      </div>
+                      <div className="discount-code">
+                        <p>Enter your coupon code if you have one.</p>
+                        <form onSubmit={handleApplyCoupon}>
+                          <input type="text" required name="name" value={coupon} onChange={e => setCoupon(e.target.value)} />
+                          <button className="cart-btn-2" type="submit"  disabled={couponApplied}>
+                            Apply Coupon
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+
                       <div className="payment-method">
                         <h4>Payment Method</h4>
                         <div className="payment-method-form">

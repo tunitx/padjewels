@@ -190,10 +190,10 @@ const App = () => {
               path={process.env.PUBLIC_URL + "/my-account"}
               element={<MyAccount />}
             />
-            <Route
-              path={process.env.PUBLIC_URL + "/login-register"}
-              element={<LoginRegister />}
-            />
+<Route
+  path={process.env.PUBLIC_URL + "/login-register/:activeTab"}
+  element={<LoginRegister />}
+/>
 
             <Route
               path={process.env.PUBLIC_URL + "/cart"}

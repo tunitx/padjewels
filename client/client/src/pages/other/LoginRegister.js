@@ -1,10 +1,12 @@
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+// import { useLocation } from 'react-router-dom';
 
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState , useEffect} from "react";
 import { Link, useLocation } from "react-router-dom";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
+import { useParams } from 'react-router-dom';
 // import { toast } from "react-hot-toast";
 import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
@@ -16,8 +18,13 @@ import BASE_URL from '../../constants/Constants';
 // import { Tab, Nav } from 'react-bootstrap';
 const LoginRegister = () => {
   const dispatch = useDispatch();
-  const [activeTab, setActiveTab] = useState('login');
+ 
+  const { activeTab } = useParams();
+const [activeTabState, setActiveTabState] = useState(activeTab);
 
+useEffect(() => {
+  setActiveTabState(activeTab);
+}, [activeTab]);
   let { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -38,7 +45,9 @@ const LoginRegister = () => {
     setShowPassword(!showPassword);
   };
 
-
+  // useEffect(() => {
+  //   setActiveTab(location.pathname.includes('register') ? 'register' : 'login');
+  // }, [location]);
   const handleLoginSubmit = async (e) => {
     console.log('hiii')
     e.preventDefault();
@@ -168,7 +177,7 @@ const LoginRegister = () => {
             <div className="row">
               <div className="col-lg-7 col-md-12 ms-auto me-auto">
                 <div className="login-register-wrapper">
-                  <Tab.Container activeKey={activeTab} onSelect={setActiveTab}>
+                  <Tab.Container activeKey={activeTabState} onSelect={setActiveTabState}>
                     <Nav variant="pills" className="login-register-tab-list">
                       <Nav.Item>
                         <Nav.Link eventKey="login" id="login-tab">

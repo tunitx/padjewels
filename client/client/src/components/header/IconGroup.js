@@ -78,14 +78,16 @@ const IconGroup = ({ iconWhiteClass, sidebarMenu, menuWhiteClass }) => {
           <div className="account-dropdown">
             <ul>
               {!token ? (
+
+
+
                 <>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "/login-register"}>Login</Link>
+                  <Link to={process.env.PUBLIC_URL + "/login-register/login"}>Login</Link>
+
                   </li>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "/login-register"}>
-                      Register
-                    </Link>
+                  <Link to={process.env.PUBLIC_URL + "/login-register/register"}>Register</Link>
                   </li>
                 </>
               ) : (

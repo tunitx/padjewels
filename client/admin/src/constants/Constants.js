@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://padjewels.onrender.com/api/v1/'
+const BASE_URL = process.env.REACT_APP_BASE_URL || "http://15.207.44.110:8444/";
 export const GET_PRODUCT_CATEGORIES = BASE_URL + 'product/cat';
 export const ADD_CATEGORY = BASE_URL + 'product/addCat';
 export const ADD_PRODUCT = BASE_URL + 'product/addProduct';
@@ -31,6 +31,7 @@ export const SALES_REPORT = BASE_URL + 'sales/salesreport'
 
 export const GET_ALL_ORDERS = BASE_URL + 'order/allorders/';
 
+export const GET_ALL_COUPONS = BASE_URL + 'carts/cart/coupons';
 
-
-
+export const ADD_COUPON = BASE_URL + 'carts/cart/add-coupon';
+export const GET_COUPON= BASE_URL + 'carts/cart/coupon/';

@@ -51,6 +51,9 @@ const ProductImageDescription = ({ spaceTopClass, spaceBottomClass, galleryType,
               // finalDiscountedPrice={finalDiscountedPrice}
               finalProductPrice={finalProductPrice}
               cartItems={cartItems}
+              cartItem={
+                cartItems.find(cartItem => cartItem.id === product.id)
+              }
               wishlistItem={wishlistItem}
               compareItem={compareItem}
             />

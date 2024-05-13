@@ -13,6 +13,12 @@ const orderSchema = new mongoose.Schema(
       type: [],
       required: true,
     },
+    firstName: {
+      type: String,
+    },
+    lastName: {
+      type: String,
+    },
     user: {
       type: String,
     },

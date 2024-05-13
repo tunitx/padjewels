@@ -17,7 +17,7 @@ import asyncHandler from "../services/asyncHandler.js";
 
 //adding product into database
 export const addProduct = async (req, res) => {
-  // console.log("HI");
+  console.log("HI");
   try {
     // console.log("Inside Try Block");
     const form = formidable({ multiples: true, keepExtensions: true });

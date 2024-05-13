@@ -2,6 +2,7 @@ import asyncHandler from "../services/asyncHandler.js";
 import CustomError from "../utils/customError.js";
 // import ProductModel from '../models/productModel.js'; // Adjust the path based on your project structure
 import CartModel from "../models/cart.schema.js"; // Adjust the path based on your project structure
+ import Coupon from  "../models/coupon.schema.js"
 
 // Add a product to the cart
 export const addToCart = asyncHandler(async (req, res) => {
@@ -144,4 +145,41 @@ export const clearCart = asyncHandler(async (req, res) => {
   await cart.save();
 
   res.status(200).json({ message: "Cart cleared successfully", cart });
+});
+
+// Add a coupon
+export const addCoupon = asyncHandler(async (req, res) => {
+  console.log(req.body)
+  const { couponName, couponType, cost } = req.body;
+  
+
+  // Create a new coupon
+  const coupon = await Coupon.create({ couponName, couponType, cost });
+
+  res.status(200).json({ message: "Coupon added successfully", coupon });
+});
+
+// Get a coupon by couponName
+export const getCouponByCouponName = asyncHandler(async (req, res) => {
+  console.log("hiiiii")
+  console.log(req.params)
+  const { couponName } = req.params;
+
+  // Find the coupon by couponName
+  const coupon = await Coupon.findOne({ couponName });
+
+  if (!coupon) {
+    return res.status(404).json({ message: "Coupon not found" });
+  }
+
+  res.json(coupon);
+});
+
+// Get all coupons
+export const getAllCoupons = asyncHandler(async (req, res) => {
+  console.log("im herer")
+  // Find all coupons
+  const coupons = await Coupon.find();
+
+  res.json(coupons);
 });

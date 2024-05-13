@@ -9,7 +9,16 @@ const cartSlice = createSlice({
   },
   reducers: {
     addToCart(state, action) {
+      // const product = action.payload;
       const product = action.payload;
+       const cartItem = state.cartItems.find(
+    (item) => item._id === product._id
+  );
+  if (cartItem && cartItem.quantity >= product.stockQuantity) {
+    cogoToast.warn("Stock limit exceeded", { position: "bottom-left" });
+    return;
+  }
+     
       if (!product.variation) {
         const cartItem = state.cartItems.find(
           (item) => item._id === product._id

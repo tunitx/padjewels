@@ -13,8 +13,9 @@ import {
 } from "../../store/slices/cart-slice";
 import { cartItemStock } from "../../helpers/product";
 import { selectUserId } from "../../store/slices/user-slice";
+// import BASE_URL from "../../constants/Constants";
+// import { GET_COUPON } from "../../../../admin/src/constants/Constants";
 import BASE_URL from "../../constants/Constants";
-
 const Cart = () => {
   let cartTotalPrice = 0;
 
@@ -26,6 +27,29 @@ const Cart = () => {
   const { cartItems } = useSelector((state) => state.cart);
   console.log(cartItems);
   const userId = useSelector(selectUserId);
+  const [coupon, setCoupon] = useState("");
+
+  const handleApplyCoupon = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}api/vi/${coupon}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error(`Failed to fetch coupon: ${errorData.message}`);
+        return;
+      }
+
+      const couponData = await response.json();
+      // dispatch(applyCoupon(couponData));
+    } catch (error) {
+      console.error("Error in API request:", error);
+    }
+  };
 
   const handleRemoveItem = async (cartItemId1, cartItemId) => {
     try {
@@ -96,7 +120,7 @@ const Cart = () => {
                         <tbody>
                           {cartItems.map((cartItem, key) => {
                             const discountedPrice = getDiscountPrice(
-                              cartItem.price,
+                              cartItem.mrpPrice,
                               cartItem.discount
                             );
                             const finalProductPrice = (
@@ -108,9 +132,9 @@ const Cart = () => {
 
                             discountedPrice != null
                               ? (cartTotalPrice +=
-                                  finalDiscountedPrice * cartItem.quantity)
+                                finalDiscountedPrice * cartItem.quantity)
                               : (cartTotalPrice +=
-                                  finalProductPrice * cartItem.quantity);
+                                finalProductPrice * cartItem.quantity);
                             return (
                               <tr key={key}>
                                 <td className="product-thumbnail">
@@ -143,7 +167,7 @@ const Cart = () => {
                                     {cartItem.productName}
                                   </Link>
                                   {cartItem.selectedProductColor &&
-                                  cartItem.selectedProductSize ? (
+                                    cartItem.selectedProductSize ? (
                                     <div className="cart-item-variation">
                                       <span>
                                         Color: {cartItem.selectedProductColor}
@@ -207,11 +231,11 @@ const Cart = () => {
                                         cartItem !== undefined &&
                                         cartItem.quantityCount &&
                                         cartItem.quantityCount >=
-                                          cartItemStock(
-                                            cartItem,
-                                            cartItem.selectedProductColor,
-                                            cartItem.selectedProductSize
-                                          )
+                                        cartItemStock(
+                                          cartItem,
+                                          cartItem.selectedProductColor,
+                                          cartItem.selectedProductSize
+                                        )
                                       }
                                     >
                                       +
@@ -319,24 +343,7 @@ const Cart = () => {
                     </div>
                   </div> */}
 
-                  <div className="col-lg-4 col-md-6">
-                    <div className="discount-code-wrapper">
-                      <div className="title-wrap">
-                        <h4 className="cart-bottom-title section-bg-gray">
-                          Use Coupon Code
-                        </h4>
-                      </div>
-                      <div className="discount-code">
-                        <p>Enter your coupon code if you have one.</p>
-                        <form>
-                          <input type="text" required name="name" />
-                          <button className="cart-btn-2" type="submit">
-                            Apply Coupon
-                          </button>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
+                 
 
                   <div className="col-lg-4 col-md-12">
                     <div className="grand-totall">
@@ -345,14 +352,9 @@ const Cart = () => {
                           Cart Total
                         </h4>
                       </div>
-                      <h5>
-                        Total products{" "}
-                        <span>
-                          {currency.currencySymbol + cartTotalPrice.toFixed(2)}
-                        </span>
-                      </h5>
+                     
 
-                      <h4 className="grand-totall-title">
+                      <h4 className="grand-totall-title mt-4">
                         Grand Total{" "}
                         <span>
                           {currency.currencySymbol + cartTotalPrice.toFixed(2)}
