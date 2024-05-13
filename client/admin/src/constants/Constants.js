@@ -1,4 +1,4 @@
-const BASE_URL = process.env.REACT_APP_BASE_URL || "http://15.207.44.110:8444/";
+export const BASE_URL = process.env.REACT_APP_BASE_URL || "http://15.207.44.110:8444/";
 export const GET_PRODUCT_CATEGORIES = BASE_URL + 'product/cat';
 export const ADD_CATEGORY = BASE_URL + 'product/addCat';
 export const ADD_PRODUCT = BASE_URL + 'product/addProduct';

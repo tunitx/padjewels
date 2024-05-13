@@ -96,7 +96,7 @@ const AddProductForm = ({ visible, onClose }) => {
         <Button key="cancel" onClick={onClose}>
           Cancel
         </Button>,
-        <Button key="add" type="primary" onClick={handleAddProduct}>
+        <Button key="add" type="primary" className="bg-blue-400" onClick={handleAddProduct}>
           Add Product
         </Button>,
       ]}

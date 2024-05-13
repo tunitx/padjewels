@@ -50,7 +50,7 @@ const Coupon = () => {
 
   return (
     <>
-      <Button type="primary" onClick={showAddCouponModal}>
+      <Button type="primary" className="bg-blue-400" onClick={showAddCouponModal}>
         Add Coupon
       </Button>
       <AddCouponForm

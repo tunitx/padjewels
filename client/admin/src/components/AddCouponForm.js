@@ -32,7 +32,7 @@ const AddCouponForm = ({ visible, onClose }) => {
         <Button key="cancel" onClick={onClose}>
           Cancel
         </Button>,
-        <Button key="add" type="primary" onClick={handleAddCoupon}>
+        <Button key="add" type="primary" className='bg-blue-400' onClick={handleAddCoupon}>
           Add Coupon
         </Button>,
       ]}
