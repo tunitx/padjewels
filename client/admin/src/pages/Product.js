@@ -23,7 +23,8 @@ import { useEffect, useState } from "react";
 import AddProductForm from "../components/AddProductForm";
 import UpdateProductForm from "../components/UpdateProductForm";
 import { GET_ALL_PRODUCTS } from "../constants/Constants";
-
+import { DELETE_PRODUCT } from "../constants/Constants";
+import { UPDATE_PRODUCT } from "../constants/Constants";
 const { Meta } = Card;
 const { Title } = Typography;
 
@@ -76,11 +77,11 @@ const Product = () => {
       console.log(productId);
 
       const response = await axios.delete(
-        `http://localhost:8081/api/v1/product/deleteProduct/${productId}`
+        `${DELETE_PRODUCT}${productId}`
       );
 
       const updatedProducts = await axios.get(
-        "http://localhost:8081/api/v1/product"
+        `${GET_ALL_PRODUCTS}`
       );
       setProduct(updatedProducts.data);
 
@@ -96,7 +97,7 @@ const Product = () => {
       console.log(productId);
 
       const response = await axios.put(
-        `http://localhost:8081/api/v1/product/updateProduct/${productId}`
+        `${UPDATE_PRODUCT}${productId}`
       );
     } catch (error) {
       console.log("Error: ", error.message);

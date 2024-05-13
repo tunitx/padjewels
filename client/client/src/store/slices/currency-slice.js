@@ -12,32 +12,24 @@ const currencySlice = createSlice({
             const currencyName = action.payload;
 
             if (currencyName === "USD") {
-                return state = {
-                    currencySymbol: "₹",
-                    currencyRate: 1,
-                    currencyName
-                };
+                state.currencySymbol = "$";
+                state.currencyRate = 0.013; // example rate
+                state.currencyName = currencyName;
             }
             if (currencyName === "EUR") {
-                return state = {
-                    currencySymbol: "₹",
-                    currencyRate: 1,
-                    currencyName
-                };
+                state.currencySymbol = "€";
+                state.currencyRate = 0.012; // example rate
+                state.currencyName = currencyName;
             }
             if (currencyName === "GBP") {
-                return state = {
-                    currencySymbol: "₹",
-                    currencyRate: 1,
-                    currencyName
-                };
+                state.currencySymbol = "£";
+                state.currencyRate = 0.010; // example rate
+                state.currencyName = currencyName;
             }
             if (currencyName === "INR") {
-                return state = {
-                    currencySymbol: "₹",
-                    currencyRate: 1,
-                    currencyName
-                };
+                state.currencySymbol = "₹";
+                state.currencyRate = 1;
+                state.currencyName = currencyName;
             }
         }
     },

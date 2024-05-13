@@ -80,11 +80,11 @@ const FooterOne = ({
                       Privacy Policy
                     </Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <Link to={process.env.PUBLIC_URL + "/terms-conditions"}>
                       Terms and Conditions
                     </Link>
-                  </li>
+                  </li> */}
 
                   <li>
                     <Link to={process.env.PUBLIC_URL + "/faq"}>FAQs</Link>
