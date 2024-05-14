@@ -160,7 +160,8 @@ const Subcategories = () => {
       key: "subcategories",
       width: "65%",
       render: (subcategories) => (
-        <ul
+        subcategories && subcategories.length>0 ? (
+<ul
           style={{
             padding: 0,
             margin: 0,
@@ -219,6 +220,8 @@ const Subcategories = () => {
             </li>
           ))}
         </ul>
+        ) : 'NIL'
+        
       ),
     },
     {

@@ -94,7 +94,7 @@ const OrderTable = () => {
       order.product.length,
       moment(order.createdAt).format("DD-MMM-YYYY h:mm A"),
       order.paymentStatus,
-      `$${order.amount.toFixed(2)}`,
+      `₹${order.amount.toFixed(2)}`,
       order.paymentOption,
       order.orderStatus,
     ]);
@@ -115,7 +115,7 @@ const OrderTable = () => {
     });
 
     pdf.text(
-      `Total Amount: $${totalAmount.toFixed(2)}`,
+      `Total Amount: ₹${totalAmount.toFixed(2)}`,
       20,
       pdf.autoTable.previous.finalY + 10
     );
@@ -184,7 +184,7 @@ const OrderTable = () => {
       key: "amount",
       render: (amount) => (
         <span className="text-lg font-semibold text-black">
-          ${amount.toFixed(2)}
+          ₹{amount.toFixed(2)}
         </span>
       ),
     },

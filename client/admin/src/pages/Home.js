@@ -142,7 +142,7 @@ function Home() {
   const count = [
     {
       today: "Today’s Sales",
-      title: "$53,000",
+      title: " ₹53,000",
       persent: "+30%",
       icon: dollor,
       bnb: "bnb2",
@@ -163,7 +163,7 @@ function Home() {
     },
     {
       today: "New Orders",
-      title: "$13,200",
+      title: "₹13,200",
       persent: "10%",
       icon: cart,
       bnb: "bnb2",
@@ -174,7 +174,7 @@ function Home() {
     {
       img: ava1,
       Title: "Soft UI Shopify Version",
-      bud: "$14,000",
+      bud: "₹14,000",
       progress: <Progress percent={60} size="small" />,
       member: (
         <div className="avatar-group mt-2">
@@ -196,7 +196,7 @@ function Home() {
     {
       img: ava2,
       Title: "Progress Track",
-      bud: "$3,000",
+      bud: "₹3,000",
       progress: <Progress percent={10} size="small" />,
       member: (
         <div className="avatar-group mt-2">
@@ -231,7 +231,7 @@ function Home() {
     {
       img: ava4,
       Title: "Launch new Mobile App",
-      bud: "$20,600",
+      bud: "₹20,600",
       progress: <Progress percent={100} size="small" status="active" />,
       member: (
         <div className="avatar-group mt-2">
@@ -247,7 +247,7 @@ function Home() {
     {
       img: ava5,
       Title: "Add the New Landing Page",
-      bud: "$4,000",
+      bud: "₹4,000",
       progress: <Progress percent={80} size="small" />,
       member: (
         <div className="avatar-group mt-2">
@@ -270,7 +270,7 @@ function Home() {
     {
       img: ava6,
       Title: "Redesign Online Store",
-      bud: "$2,000",
+      bud: "₹2,000",
       progress: (
         <Progress
           percent={100}
@@ -294,7 +294,7 @@ function Home() {
 
   const timelineList = [
     {
-      title: "$2,400 - Redesign store",
+      title: "₹2,400 - Redesign store",
       time: "09 JUN 7:20 PM",
       color: "green",
     },
@@ -374,12 +374,8 @@ function Home() {
         </Row>
 
         <Row gutter={[24, 0]}>
-          <Col xs={24} sm={24} md={12} lg={12} xl={10} className="mb-24">
-            <Card bordered={false} className="criclebox h-full">
-              <Echart />
-            </Card>
-          </Col>
-          <Col xs={24} sm={24} md={12} lg={12} xl={14} className="mb-24">
+
+          <Col xs={24} sm={24} md={12} lg={12} xl={14} className="mb-24 ">
             <Card bordered={false} className="criclebox h-full">
               <LineChart />
             </Card>

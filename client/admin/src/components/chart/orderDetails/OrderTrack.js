@@ -86,7 +86,7 @@ const TrackOrder = ({ order }) => {
       title: "Price",
       dataIndex: "price",
       key: "price",
-      render: (text) => `$${text}`,
+      render: (text) => `₹${text}`,
     },
   ];
 
@@ -181,7 +181,7 @@ const TrackOrder = ({ order }) => {
           <div className="text-right mt-4">
             <Space>
               <span className="font-bold text-lg">Total:</span>
-              <span className="text-xl total-amount">${total}</span>
+              <span className="text-xl total-amount">₹{total}</span>
             </Space>
           </div>
         </div>
