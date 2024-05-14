@@ -4,6 +4,10 @@ import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import Logo from "../../components/header/Logo";
+import p1 from "../../assets/designer-artificial-jewellery.jpg"
+// import logo from '../../assets/img/logo/logo2.jpg'
+import logo from '../../assets/logo-2.jpg'
+import p2 from '../../assets/ourapporach.webp'
 
 import FooterCopyright from "../../components/footer/FooterCopyright";
 
@@ -25,20 +29,20 @@ const About = () => {
           ]}
         />
  
-        <div className="w-full h-full flex flex-col items-center justify-center gap-y-8 mb-16">
-        <div className="relative left-10 w-[400px] h-[400px] top-4">
-        <FooterCopyright
-              footerLogo="/assets/img/logo/logo-2.jpg"
-              className = 'relative bottom-18'
-            />
-        </div>
+        <div className="w-full h-full flex flex-col items-center justify-center gap-y-8 mb-16 mt-8">
+        
         
           {/* about section */}
           <div className="w-[90%] h-auto flex flex-col justify-center items-center space-y-6 ">
+
             <h1 className="text-3xl underline  hover:cursor-pointer ">
               About Us
 
             </h1>
+
+            <div className="w-[30%] h-[30%]">
+           <img src={logo} alt="" />
+            </div>
            
             
             <div className="w-full h-full  bg-gray-100 rounded-lg flex flex-col justify-center items-center py-6 px-4">
@@ -53,10 +57,14 @@ const About = () => {
           </div>
           {/* our mission */}
           <div className="w-[90%] h-auto flex flex-col justify-center items-center  space-y-6"  >
+          
             <h1 className="text-3xl underline hover:cursor-pointer">
               Our Mission
 
             </h1>
+            <div className="w-[25%] h-[25%] ">
+           <img src={p1} className="rounded-full" alt="" />
+            </div>
             <div className="w-full h-full  bg-gray-100 rounded-lg flex flex-col justify-center items-center py-6 px-4">
               <div className="w-[100%] h-[100%] ">
               
@@ -74,6 +82,9 @@ const About = () => {
             <h1 className="text-3xl underline hover:cursor-pointer">
               Our Approach
             </h1>
+            <div className="w-[35%] h-[35%] ">
+           <img src={p2} className="rounded-lg" alt="" />
+            </div>
             <div className="w-full h-full  bg-gray-100 rounded-lg flex flex-col justify-center items-center py-6 px-4">
               <div>
               <p className="text-lg hover:cursor-pointer">
