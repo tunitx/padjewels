@@ -1,14 +1,22 @@
+
 import React, { useEffect, useState } from "react";
+import { CheckCircleOutlined } from "@ant-design/icons";
 import { Modal, Form, Input, Button, message, Select, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import axios from "axios";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+
 import { GET_PRODUCT_CATEGORIES } from "../constants/Constants";
 import { GET_CAT_WITH_SUBCAT } from "../constants/Constants";
 import { ADD_PRODUCT } from "../constants/Constants";
 
+
 const { Option } = Select;
 
-const AddProductForm = ({ visible, onClose }) => {
+
+const AddProductForm = ({ visible, onClose, onAdd }) => {
+  const [uploadSuccess, setUploadSuccess] = useState(false);
+  const history = useHistory();
   const [form] = Form.useForm();
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
@@ -20,12 +28,16 @@ const AddProductForm = ({ visible, onClose }) => {
     if (fileList.length > 0) {
       const file = fileList[0].originFileObj;
       setFile(file);
+      setUploadSuccess(true);
     }
   };
 
   useEffect(() => {
     fetchData();
+   
   }, []);
+ 
+  
 
   const fetchData = async () => {
     try {
@@ -76,11 +88,15 @@ const AddProductForm = ({ visible, onClose }) => {
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
+      // console.log(onAdd());
 
+      onAdd();
       // Handle success, e.g., show a success message
       message.success("Product added successfully");
       form.resetFields();
       onClose();
+
+
     } catch (error) {
       // Handle errors, e.g., show an error message
       message.error("Failed to add product");
@@ -199,7 +215,9 @@ const AddProductForm = ({ visible, onClose }) => {
         >
           <Upload onChange={fileSelected} showUploadList={false}>
             <Button icon={<UploadOutlined />}>Upload Image</Button>
+
           </Upload>
+          {uploadSuccess && <CheckCircleOutlined style={{ color: 'green', marginLeft: '10px' }} />} {/* Render tick icon when uploadSuccess is true */}
           {/* <Button icon={<UploadOutlined />} onClick={customRequest}>Submit</Button> */}
         </Form.Item>
 

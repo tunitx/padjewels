@@ -11,6 +11,7 @@ import {
   Typography,
 } from "antd";
 
+
 import {
   DeleteOutlined,
   EditOutlined,
@@ -18,6 +19,7 @@ import {
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import axios from "axios";
+
 
 import { useEffect, useState } from "react";
 import AddProductForm from "../components/AddProductForm";
@@ -103,6 +105,21 @@ const Product = () => {
       console.log("Error: ", error.message);
     }
   };
+  const handleAddProduct = async () => {
+    try {
+      // Assuming you have an API endpoint to add a product
+      const updatedProducts = await axios.get(
+        `${GET_ALL_PRODUCTS}`
+      );
+      setProduct(updatedProducts.data);
+      // console.log(updatedProducts)
+      
+      // If the product is successfully added, update the state
+      console.log("new prod added successfully")
+    } catch (error) {
+      console.log("Error: ", error.message);
+    }
+  };
 
   return (
     <>
@@ -126,6 +143,7 @@ const Product = () => {
                     <AddProductForm
                       visible={isAddProductModalVisible}
                       onClose={hideAddProductModal}
+                      onAdd={handleAddProduct}
                     />
                   </Radio.Group>
                 </>
@@ -182,6 +200,7 @@ const Product = () => {
             console.log("Product updated:", updatedProduct);
             hideUpdateProductModal();
           }}
+          onAdd={handleAddProduct}
         />
       )}
     </>
