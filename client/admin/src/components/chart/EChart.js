@@ -27,7 +27,7 @@ function EChart() {
       user: "Clicks",
     },
     {
-      Title: "$772",
+      Title: "₹772",
       user: "Sales",
     },
     {
@@ -38,7 +38,7 @@ function EChart() {
 
   return (
     <>
-      {/* <div id="chart">
+      <div id="chart">
         <ReactApexChart
           className="bar-chart"
           options={eChart.options}
@@ -66,7 +66,7 @@ function EChart() {
             </Col>
           ))}
         </Row>
-      </div> */}
+      </div>
     </>
   );
 }

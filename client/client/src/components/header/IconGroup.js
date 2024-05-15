@@ -141,8 +141,6 @@ const IconGroup = ({ iconWhiteClass, sidebarMenu, menuWhiteClass }) => {
         </div>
         
 
-
-
       </div>
       
 

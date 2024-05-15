@@ -91,6 +91,7 @@ const AddProductForm = ({ visible, onClose, onAdd }) => {
       // console.log(onAdd());
 
       onAdd();
+      setUploadSuccess(false);
       // Handle success, e.g., show a success message
       message.success("Product added successfully");
       form.resetFields();
@@ -217,9 +218,10 @@ const AddProductForm = ({ visible, onClose, onAdd }) => {
             <Button icon={<UploadOutlined />}>Upload Image</Button>
 
           </Upload>
-          {uploadSuccess && <CheckCircleOutlined style={{ color: 'green', marginLeft: '10px' }} />} {/* Render tick icon when uploadSuccess is true */}
+          
           {/* <Button icon={<UploadOutlined />} onClick={customRequest}>Submit</Button> */}
         </Form.Item>
+        {uploadSuccess && <CheckCircleOutlined  className="relative bottom-[55px] left-[150px]" style={{ color: 'green', marginLeft: '10px' }} />} 
 
         <Form.Item
           label="Stock Quantity"
