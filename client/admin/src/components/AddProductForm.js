@@ -5,6 +5,7 @@ import { Modal, Form, Input, Button, message, Select, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { PlusOutlined } from "@ant-design/icons";
 
 import { GET_PRODUCT_CATEGORIES } from "../constants/Constants";
 import { GET_CAT_WITH_SUBCAT } from "../constants/Constants";
@@ -20,17 +21,19 @@ const AddProductForm = ({ visible, onClose, onAdd }) => {
   const [form] = Form.useForm();
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
-  const [file, setFile] = useState();
+  const [files, setFiles] = useState([]);
 
   const fileSelected = (info) => {
     console.log(info);
     const fileList = [...info.fileList];
-    if (fileList.length > 0) {
-      const file = fileList[0].originFileObj;
-      setFile(file);
-      setUploadSuccess(true);
-    }
+    const files = fileList.map(fileItem => fileItem.originFileObj);
+    setFiles(files);
+    console.log(files)
+    setUploadSuccess(true);
+    
+    //  message.success(`${files.length} file(s) uploaded successfully`);
   };
+  
 
   useEffect(() => {
     fetchData();
@@ -68,38 +71,34 @@ const AddProductForm = ({ visible, onClose, onAdd }) => {
   const handleAddProduct = async () => {
     try {
       const values = await form.validateFields();
-
+  
+      // const formData = new FormData();
       const formData = new FormData();
-      formData.append("productThumbnail", file);
-      console.log(file);
-      // const response = await axios.post(
-      //   "http://localhost:8081/api/v1/product/addProduct",
-      //   formData,
-      //   {
-      //     headers: { "Content-Type": "multipart/form-data" },
-      //   }
-      // );
-
-      // Make API request to add product
+      files.forEach((file, index) => {
+        formData.append('productImages', file);
+      });
+  
+      // Append other form data
+      Object.keys(values).forEach((key) => {
+        formData.append(key, values[key]);
+      });
+  
       const response = await axios.post(
         `${ADD_PRODUCT}`,
-        values,
+        formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
-      // console.log(onAdd());
-
-      onAdd();
-      setUploadSuccess(false);
-      // Handle success, e.g., show a success message
+  
+      // Handle success
+      onAdd()
       message.success("Product added successfully");
       form.resetFields();
       onClose();
-
-
     } catch (error) {
-      // Handle errors, e.g., show an error message
+      // Handle errors
+      console.log(error)
       message.error("Failed to add product");
     }
   };
@@ -214,11 +213,10 @@ const AddProductForm = ({ visible, onClose, onAdd }) => {
             },
           ]}
         >
-          <Upload onChange={fileSelected} showUploadList={false}>
-            <Button icon={<UploadOutlined />}>Upload Image</Button>
-
-          </Upload>
-          
+         <Upload onChange={fileSelected} multiple showUploadList={true}>
+    <Button icon={<UploadOutlined />}>Upload Image(Multiple Images Allowed)</Button>
+  </Upload>
+  
           {/* <Button icon={<UploadOutlined />} onClick={customRequest}>Submit</Button> */}
         </Form.Item>
         {uploadSuccess && <CheckCircleOutlined  className="relative bottom-[55px] left-[150px]" style={{ color: 'green', marginLeft: '10px' }} />} 

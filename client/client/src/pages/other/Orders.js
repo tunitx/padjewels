@@ -165,6 +165,8 @@ import {
   MDBCol,
   MDBContainer,
   MDBRow,
+  MDBProgress,
+    MDBProgressBar,
 } from "mdb-react-ui-kit";
 import { Fragment } from "react";
 import { useLocation } from "react-router-dom";
@@ -193,25 +195,26 @@ const Orders = () => {
   const mapProductDetails = (product, orderItem) => {
     const productDetails = products.products.find((p) => p._id === product._id);
     console.log(productDetails);
+    console.log(orderItem)
 
     if (productDetails) {
       return (
-        <MDBRow key={productDetails._id}>
-          <MDBCol md="2">
+        <MDBRow className="w-100 border py-3 justify-content-center" key={productDetails._id}>
+          <MDBCol lg="4" className="border-right d-flex justify-content-center align-items-center">
             <MDBCardImage
               src={productDetails.photos[0].secure_url}
               fluid
               alt={productDetails.productName}
             />
           </MDBCol>
-          <MDBCol md="2">
+          <MDBCol lg="6" className="border-right d-flex justify-content-center align-items-center">
             <p>{productDetails.productName}</p>
           </MDBCol>
-          <MDBCol md="2">
-            <p> Qty : 1</p>
+          <MDBCol lg="2" className="d-flex justify-content-center align-items-center">
+            <p>Qty: {product.quantity}</p>
           </MDBCol>
-
         </MDBRow>
+        
       );
     }
   };
@@ -239,23 +242,44 @@ const Orders = () => {
                 <MDBCard style={{ borderRadius: "10px" }}>
                   {orders.orders && orders.orders.length > 0 ? (
                     orders.orders.map((orderItem) => (
+                     
                       <MDBCard
                         key={orderItem._id}
                         className="shadow-0 border mb-4"
                       >
                         <MDBCardBody>
-                          <MDBRow>
-                            <MDBCol md="2">
-                              <p>Order ID: {orderItem.orderId}</p>
-                            </MDBCol>
-                            <MDBCol md="2">
-                              <p>Total Amount:&#8377; {orderItem.amount}</p>
-                            </MDBCol>
+                        <div className="w-full h-full flex flex-row flex-wrap justify-around my-4 underline">
+                        <p>Order ID: {orderItem.orderId}</p>
+                        <p>Grand Total : <span> &#8377; {orderItem.amount}</span></p>
+                        </div>
+                       
+                        
 
-                          </MDBRow>
                           {orderItem.product.map((product) =>
                             mapProductDetails(product, orderItem)
                           )}
+                          <MDBRow className="align-items-center">
+           <MDBCol md="2">
+              <p className="text-muted mb-0 small">Track Order</p>
+            </MDBCol>
+           <MDBCol md="10">
+              <MDBProgress style={{ height: "6px", borderRadius: "16px" }}>
+                <MDBProgressBar
+                 style={{
+                    borderRadius: "16px",
+                    backgroundColor: "#a8729a",
+                   }}
+                  width={50}
+                   valuemin={0}
+                  valuemax={100}
+                />
+              </MDBProgress>
+               <div className="d-flex justify-content-around mb-1">
+                 <p className="text-muted mt-1 mb-0 small ms-xl-5">Ordered</p>
+                <p className="text-muted mt-1 mb-0 small ms-xl-5">Delivered</p>
+               </div>
+            </MDBCol>
+          </MDBRow>
                         </MDBCardBody>
                       </MDBCard>
                     ))

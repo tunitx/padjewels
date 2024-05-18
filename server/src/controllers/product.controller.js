@@ -17,21 +17,19 @@ import asyncHandler from "../services/asyncHandler.js";
 
 //adding product into database
 export const addProduct = async (req, res) => {
+
   console.log("HI");
   try {
     // console.log("Inside Try Block");
     const form = formidable({ multiples: true, keepExtensions: true });
-    // console.log("After Form Constant");
-    console.log(req.body);
 
     form.parse(req, async function (err, fields, files) {
-      // console.log("Inside Form parsing");
       if (err) {
         throw new CustomError(err.message || "Something went wrong", 500);
       }
 
       const productId = new mongoose.Types.ObjectId().toHexString();
-      // console.log(productId);
+
       // Check for required fields
       if (
         !fields.productName ||
@@ -41,27 +39,28 @@ export const addProduct = async (req, res) => {
       ) {
         throw new CustomError("Please fill all the fields", 400);
       }
-      console.log(files);
+
       // Process image files
+      // Process image files
+      console.log(files)
       const imgArrayResp = await Promise.all(
-        Object.values(files).flatMap((fileList) =>
-          fileList.map(async (file, index) => {
-            const data = fs.readFileSync(file.filepath);
-            // console.log("file", file);
-            const upload = await s3FileUpload({
-              bucketName: config.S3_BUCKET_NAME,
-              key: `products/${productId}/photo_${index + 1}.png`,
-              body: data,
-              contentType: file.mimetype,
-            });
-
-            return {
-              secure_url: upload.Location,
-            };
-          })
-        ),
+        files.productImages.map(async (file, index) => {
+          if (!file || !file.filepath) {
+            throw new CustomError("File upload failed", 500);
+          }
+          const data = fs.readFileSync(file.filepath);
+          const upload = await s3FileUpload({
+            bucketName: config.S3_BUCKET_NAME,
+            key: `products/${productId}/photo_${index + 1}.png`,
+            body: data,
+            contentType: file.type,
+          });
+      
+          return {
+            secure_url: upload.Location,
+          };
+        })
       );
-
       // Create the product object with correct data types
       const productData = {
         _id: productId,
@@ -83,7 +82,7 @@ export const addProduct = async (req, res) => {
 
       // Create the product in the database
       const product = await Product.create(productData);
-
+console.log(product);
       if (!product) {
         throw new CustomError("Product failed to be created in DB", 500);
       }

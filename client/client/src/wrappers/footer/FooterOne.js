@@ -16,9 +16,9 @@ const FooterOne = ({
   sideMenu
 }) => {
   return (
-    <footer className={clsx("footer-area", backgroundColorClass, spaceTopClass, spaceBottomClass, extraFooterClass, spaceLeftClass, spaceRightClass)}>
+    <footer className={clsx("footer-area " ,  backgroundColorClass, spaceTopClass, spaceBottomClass, extraFooterClass, spaceLeftClass, spaceRightClass)}>
       <div className={`${containerClass ? containerClass : "container"}`}>
-      <div className="row d-flex justify-content-between">
+      <div className="row d-flex justify-content-between align-items-center">
           <div
             className={`${sideMenu ? "col-xl-2 col-sm-4" : "col-lg-2 col-sm-4"
               }`}

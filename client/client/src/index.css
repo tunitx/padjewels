@@ -9,3 +9,11 @@
   .wishlist-icon {
     transition: all 0.3s ease;
   }
+  .footer-area.reduced-h {
+    height: 50vh; /* adjust this value as needed */
+    
+  }
+  
+  .row.d-flex.align-items-center {
+    align-items: center;
+  }
