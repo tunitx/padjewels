@@ -219,7 +219,7 @@ const AddProductForm = ({ visible, onClose, onAdd }) => {
   
           {/* <Button icon={<UploadOutlined />} onClick={customRequest}>Submit</Button> */}
         </Form.Item>
-        {uploadSuccess && <CheckCircleOutlined  className="relative bottom-[55px] left-[150px]" style={{ color: 'green', marginLeft: '10px' }} />} 
+        {/* {uploadSuccess && <CheckCircleOutlined  className="relative bottom-[55px] left-[150px]" style={{ color: 'green', marginLeft: '10px' }} />}  */}
 
         <Form.Item
           label="Stock Quantity"
