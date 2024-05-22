@@ -43,16 +43,21 @@ export const addToCart = asyncHandler(async (req, res) => {
 // Get the user's shopping cart
 export const getCartByUserId = async (req, res) => {
   const { userId } = req.params;
+  console.log(userId)
+  console.log("users cart")
 
   try {
-    const cart = await CartModel.findOne({ userId }).populate('items.productId', 'productName quantity');
-
+    // const cart = await CartModel.findOne({ userId }).populate('items.productId', 'productName quantity');
+    const cart = await CartModel.find()
+    console.log(cart)
     if (!cart) {
+      console.log('e1');
       return res.status(404).json({ message: 'Cart not found' });
     }
 
     res.json(cart);
   } catch (error) {
+    console.log('e2')
     console.error('Error fetching cart data:', error);
     res.status(500).json({ message: 'Internal Server Error' });
   }

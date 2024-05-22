@@ -16,11 +16,12 @@ const router = express.Router();
 // router.get('/cart',getCart)
 router.post('/cart/add-item/:userId', addItemOrUpdateItemQuantity);
 
+router.get('/cart/:userId', getCartByUserId);
+
 router.post('/cart/add-coupon', addCoupon);
 router.get('/cart/coupon/:couponName', getCouponByCouponName);
 router.get('/cart/coupons', getAllCoupons);
 
-router.get('/cart/:userId', getCartByUserId);
 
 router.delete('/cart/remove-item/:userId/:productId', removeItemFromCart); // Updated route
 

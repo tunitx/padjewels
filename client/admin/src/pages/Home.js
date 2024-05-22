@@ -142,7 +142,7 @@ function Home() {
   const count = [
     {
       today: "Today’s Sales",
-      title: " ₹53,000",
+      title: " ₹5,300",
       persent: "+30%",
       icon: dollor,
       bnb: "bnb2",
@@ -374,12 +374,12 @@ function Home() {
         </Row>
 
         <Row gutter={[24, 0]}>
-  <Col xs={24} sm={24} md={24} lg={24} xl={24} className="mb-24">
-    <Card bordered={false} className="criclebox h-full">
-      <Echart />
-    </Card>
-  </Col>
-</Row>
+          <Col xs={24} sm={24} md={24} lg={24} xl={24} className="mb-24">
+            <Card bordered={false} className="criclebox h-full">
+              <Echart />
+            </Card>
+          </Col>
+        </Row>
 
 
         {/* <Row gutter={[24, 0]}>
