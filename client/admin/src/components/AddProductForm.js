@@ -235,7 +235,7 @@ const AddProductForm = ({ visible, onClose, onAdd }) => {
         </Form.Item>
 
         <Form.Item
-          label="Product Size"
+          label="Product Size (0 in case of free size)"
           name="size"
           rules={[{ required: true, message: "Please enter the product name" }]}
         >

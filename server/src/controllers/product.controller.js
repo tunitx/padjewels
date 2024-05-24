@@ -14,7 +14,187 @@ import asyncHandler from "../services/asyncHandler.js";
 // const storage = multer.memoryStorage();
 // const upload = multer({ storage: storage });
 
+// export const updateProduct = async (req, res) => {
+//   try {
+//     console.log("ProductId:", req.params.productId);
+//     console.log(req.body)
+//     const productId = req.params.productId;
+//     const updatedProduct = await Product.findByIdAndUpdate(
+//       productId,
+//       req.body, // Set updated fields
+//       { new: true } // Return modified document
+//     );
 
+//     // Get product id
+//     const form = formidable({ multiples: true, keepExtensions: true });
+
+//     form.parse(req, async function (err, fields, files) {
+//       if (err) {
+//         throw new CustomError(err.message || "Something went wrong", 500);
+//       }
+
+      
+
+     
+
+
+//       // Process image files
+//       if(files.length > 0){
+//         console.log(files)
+//         const imgArrayResp = await Promise.all(
+//           files.productImages.map(async (file, index) => {
+//             if (!file || !file.filepath) {
+//               throw new CustomError("File upload failed", 500);
+//             }
+//             const data = fs.readFileSync(file.filepath);
+//             const upload = await s3FileUpload({
+//               bucketName: config.S3_BUCKET_NAME,
+//               key: `products/${productId}/photo_${index + 6}.png`,
+//               body: data,
+//               contentType: file.type,
+//             });
+        
+//             return {
+//               secure_url: upload.Location,
+//             };
+//           })
+//         );
+//         const newImg = imgArrayResp.filter(Boolean);
+//         console.log(newImg)
+//       }
+     
+//       // return;
+  
+     
+     
+//     });
+//     if (updatedProduct) {
+//       res.status(200).json({
+//         success: true,
+//         message: "Product Details Updated Successfully",
+//         data: updatedProduct,
+//       });
+//     } else {
+//       res.status(404).json({ success: false, message: "Product not found" });
+//     }
+   
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({
+//       success: false,
+//       error: error.message || "Internal Server Error",
+//     });
+//   }
+// };
+export const updateProdImages = async (req, res) => {
+  
+}
+export const updateProduct = async (req, res) => {
+  try {
+    console.log("ProductId:", req.params.productId);
+    console.log(req.body)
+
+    // Get product id
+    const productId = req.params.productId;
+    if(req.body.photos ){
+      // Fetch the existing product
+      const existingProduct = await Product.findById(productId);
+
+      if (!existingProduct) {
+        return res.status(404).json({ success: false, message: "Product not found" });
+      }
+
+      // Update the photos in the product
+      existingProduct.photos = req.body.photos;
+
+      // Save the updated product
+      const updatedProduct = await existingProduct.save();
+
+      // Return the updated product
+      return res.status(200).json({
+        success: true,
+        message: "Product photos updated successfully",
+        data: updatedProduct,
+      });
+    }
+    else{
+
+   
+
+    const form = formidable({ multiples: true, keepExtensions: true });
+
+    form.parse(req, async function (err, fields, files) {
+      if (err) {
+        throw new CustomError(err.message || "Something went wrong", 500);
+      }
+
+      // Convert array fields to single values
+      Object.keys(fields).forEach((key) => {
+        if (Array.isArray(fields[key])) {
+          fields[key] = fields[key][0];
+        }
+      });
+
+      let imgArrayResp = [];
+      // Check if there are files to process
+      if (files.productImages) {
+        // Process image files
+        console.log(files)
+        imgArrayResp = await Promise.all(
+          files.productImages.map(async (file, index) => {
+            if (!file || !file.filepath) {
+              throw new CustomError("File upload failed", 500);
+            }
+            const data = fs.readFileSync(file.filepath);
+            const upload = await s3FileUpload({
+              bucketName: config.S3_BUCKET_NAME,
+              key: `products/${productId}/photo_${Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)}.png`,
+              body: data,
+              contentType: file.type,
+            });
+        
+            return {
+              secure_url: upload.Location,
+            };
+          })
+        );
+      }
+
+      // Fetch the existing product
+      const existingProduct = await Product.findById(productId);
+
+      // Create the product object with correct data types
+      const productData = {
+        ...fields,
+        photos: [...existingProduct.photos, ...imgArrayResp.filter(Boolean)],
+      };
+
+      // Update the product in the database
+      const updatedProduct = await Product.findByIdAndUpdate(
+        productId,
+        productData, // Set updated fields
+        { new: true } // Return modified document
+      );
+
+      if (updatedProduct) {
+        res.status(200).json({
+          success: true,
+          message: "Product Details Updated Successfully",
+          data: updatedProduct,
+        });
+      } else {
+        res.status(404).json({ success: false, message: "Product not found" });
+      }
+    });
+  }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      error: error.message || "Internal Server Error",
+    });
+  }
+};
 //adding product into database
 export const addProduct = async (req, res) => {
 
@@ -290,36 +470,80 @@ export const deleteCat = async (req, res) => {
 };
 
 // Update product details
-export const updateProduct = async (req, res) => {
-  try {
-    console.log("ProductId:", req.params.productId);
 
-    // Get product id
-    const productId = req.params.productId;
+// export const updateProduct = async (req, res) => {
+//   try {
+//     console.log("ProductId:", req.params.productId);
 
-    const updatedProduct = await Product.findByIdAndUpdate(
-      productId,
-      req.body, // Set updated fields
-      { new: true } // Return modified document
-    );
+//     // Get product id
+//     const productId = req.params.productId;
 
-    if (updatedProduct) {
-      res.status(200).json({
-        success: true,
-        message: "Product Details Updated Successfully",
-        data: updatedProduct,
-      });
-    } else {
-      res.status(404).json({ success: false, message: "Product not found" });
-    }
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      success: false,
-      error: error.message || "Internal Server Error",
-    });
-  }
-};
+//     const form = formidable({ multiples: true, keepExtensions: true });
+
+//     form.parse(req, async function (err, fields, files) {
+//       if (err) {
+//         throw new CustomError(err.message || "Something went wrong", 500);
+//       }
+
+//       let imgArrayResp = [];
+//       // Check if there are files to process
+//       if (files.productImages) {
+//         // Process image files
+//         console.log(files)
+//         imgArrayResp = await Promise.all(
+//           files.productImages.map(async (file, index) => {
+//             if (!file || !file.filepath) {
+//               throw new CustomError("File upload failed", 500);
+//             }
+//             const data = fs.readFileSync(file.filepath);
+//             const upload = await s3FileUpload({
+//               bucketName: config.S3_BUCKET_NAME,
+//               key: `products/${productId}/photo_${index + 1}.png`,
+//               body: data,
+//               contentType: file.type,
+//             });
+        
+//             return {
+//               secure_url: upload.Location,
+//             };
+//           })
+//         );
+//       }
+
+//       // Fetch the existing product
+//       const existingProduct = await Product.findById(productId);
+
+//       // Create the product object with correct data types
+//       const productData = {
+//         ...req.body,
+//         photos: [...existingProduct.photos, ...imgArrayResp.filter(Boolean)],
+//       };
+
+//       // Update the product in the database
+//       const updatedProduct = await Product.findByIdAndUpdate(
+//         productId,
+//         productData, // Set updated fields
+//         { new: true } // Return modified document
+//       );
+
+//       if (updatedProduct) {
+//         res.status(200).json({
+//           success: true,
+//           message: "Product Details Updated Successfully",
+//           data: updatedProduct,
+//         });
+//       } else {
+//         res.status(404).json({ success: false, message: "Product not found" });
+//       }
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({
+//       success: false,
+//       error: error.message || "Internal Server Error",
+//     });
+//   }
+// };
 
 // Update the Catgory
 export const updateCat = async (req, res) => {
