@@ -48,27 +48,15 @@ const IconGroup = ({ iconWhiteClass, sidebarMenu, menuWhiteClass }) => {
 
   return (
     <>
-      <div className={clsx("header-right-wrap", iconWhiteClass, {
+      <div className={clsx("header-right-wrap  ", iconWhiteClass, {
         "sidebar-menu": sidebarMenu,
         [`main-menu ${menuWhiteClass ? menuWhiteClass : ""}`]: !sidebarMenu
       })}>
       
 
 
-        {/* <div className="same-style header-search d-none d-lg-block">
-          <button className="search-active" onClick={e => handleClick(e)}>
-            <i className="pe-7s-search" />
-          </button>
-          <div className="search-content">
-            <form action="#">
-              <input type="text" placeholder="Search" />
-              <button className="button-search">
-                <i className="pe-7s-search" />
-              </button>
-            </form>
-          </div>
-        </div> */}
-        <div className="same-style account-setting d-none d-lg-block">
+
+        <div className="same-style account-setting  d-lg-block  ">
           <button
             className="account-setting-active"
             onClick={e => handleClick(e)}
@@ -78,9 +66,6 @@ const IconGroup = ({ iconWhiteClass, sidebarMenu, menuWhiteClass }) => {
           <div className="account-dropdown">
             <ul>
               {!token ? (
-
-
-
                 <>
                   <li>
                   <Link to={process.env.PUBLIC_URL + "/login-register/login"}>Login</Link>

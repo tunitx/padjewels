@@ -20,6 +20,7 @@ const Carts = () => {
         `${GET_USER}`
       );
       setUserData(response.data);
+      console.log("User Data:", response.data)
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
@@ -31,6 +32,7 @@ const Carts = () => {
       const response = await axios.get(
         `${GET_CART_DATA + userId}`
       );
+      console.log("Cart Data:", response.data)
       const cartItems = response.data.items;
 
       const productDetails = await Promise.all(
@@ -38,6 +40,7 @@ const Carts = () => {
           const productResponse = await axios.get(
             `${ GET_PRODUCT_DETAILS +  cartItem.productId._id}`
           );
+          console.log("Product Details:", productResponse.data)
           return { ...cartItem, productDetails: productResponse.data };
         })
       );
@@ -64,20 +67,21 @@ const Carts = () => {
       title: "Phone Number",
       dataIndex: "phone",
       key: "phone",
+      value: 'nil'
     },
-    {
-      title: "Actions",
-      key: "actions",
-      render: (_, record) => (
-        <Button
-          type="primary"
-          className="bg-blue-600"
-          onClick={() => fetchCartData(record._id)}
-        >
-          View Carts
-        </Button>
-      ),
-    },
+    // {
+    //   title: "Actions",
+    //   key: "actions",
+    //   render: (_, record) => (
+    //     <Button
+    //       type="primary"
+    //       className="bg-blue-600"
+    //       onClick={() => fetchCartData(record._id)}
+    //     >
+    //       View Carts
+    //     </Button>
+    //   ),
+    // },
   ];
 
   const handleCloseModal = () => {

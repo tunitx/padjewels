@@ -1,5 +1,5 @@
 // export const BASE_URL =  'https://padjewels.onrender.com/api/v1/';
-export const BASE_URL = 'http://localhost:8081/api/v1/';
+export const BASE_URL = 'http://13.60.80.160/api/v1/';
 export const GET_PRODUCT_CATEGORIES = BASE_URL + 'product/cat';
 export const ADD_CATEGORY = BASE_URL + 'product/addCat';
 export const ADD_PRODUCT = BASE_URL + 'product/addProduct';

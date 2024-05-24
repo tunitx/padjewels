@@ -17,3 +17,18 @@
   .row.d-flex.align-items-center {
     align-items: center;
   }
+  .sidebar-menu {
+    width: 100%; /* Set the width to 100% of the screen width */
+    height: 100vh; /* Set the height to 100% of the viewport height */
+    position: fixed; /* Fix the position of the menu */
+    top: 0; /* Position the menu at the top of the screen */
+    left: 0; /* Position the menu at the left of the screen */
+    background-color: #fff; /* Set a background color */
+    overflow-y: auto; /* Add a scrollbar if the content overflows */
+    transition: transform 0.3s ease-in-out; /* Add a transition for the transform property */
+    transform: translateX(-100%); /* Initially, move the menu to the left by its own width */
+  }
+  
+  .sidebar-menu.open {
+    transform: translateX(0); /* When the menu is open, move it back to its original position */
+  }

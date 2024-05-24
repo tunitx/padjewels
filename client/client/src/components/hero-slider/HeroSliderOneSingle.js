@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 
 import { Link } from "react-router-dom";
+import img from '../../assets/cover.png'
 
 const HeroSliderOneSingle = ({ data }) => {
   return (
