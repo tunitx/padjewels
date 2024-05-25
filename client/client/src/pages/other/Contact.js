@@ -64,30 +64,16 @@ const Contact = () => {
                     <h3>Follow Us</h3>
                     <ul>
                       <li>
-                        <a href="//facebook.com">
+                        <a href="https://www.facebook.com/share/VaUP7x8PJkfL7vAg/?mibextid=qi2Omg">
                           <i className="fa fa-facebook" />
                         </a>
                       </li>
                       <li>
-                        <a href="//pinterest.com">
-                          <i className="fa fa-pinterest-p" />
+                        <a href="https://www.instagram.com/padjewels/?utm_source=qr&igsh=djU1cjJzemplcm80">
+                          <i className="fa fa-instagram" />
                         </a>
                       </li>
-                      <li>
-                        <a href="//thumblr.com">
-                          <i className="fa fa-tumblr" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="//vimeo.com">
-                          <i className="fa fa-vimeo" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="//twitter.com">
-                          <i className="fa fa-twitter" />
-                        </a>
-                      </li>
+                     
                     </ul>
                   </div>
                 </div>

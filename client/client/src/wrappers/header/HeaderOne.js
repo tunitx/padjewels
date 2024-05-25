@@ -91,7 +91,7 @@ const HeaderOne = ({
           
        
           
-            <div className="col-xl-2 col-lg-2 col-md-6 col-4 relative left-14">
+            <div className="col-xl-2 col-lg-2 col-md-6 col-4 relative left-14 lg:left-0">
               {/* Icon group */}
               <IconGroup />
             </div>

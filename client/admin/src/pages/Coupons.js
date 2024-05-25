@@ -20,7 +20,7 @@ const Coupon = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(GET_ALL_COUPONS);
-        console.log(items)
+        // console.log(items)
         const items = response?.data;
         setCoupons(items);
       } catch (error) {

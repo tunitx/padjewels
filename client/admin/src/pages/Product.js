@@ -123,7 +123,7 @@ const Product = () => {
 
   return (
     <>
-      <div>
+      <div className="">
         <Row gutter={[24, 0]}>
           <Col xs="24" xl={24}>
             <Card
@@ -158,6 +158,7 @@ const Product = () => {
           <Col key={product?.id} xs={24} sm={12} md={8} lg={6}>
             <Card
               style={{ width: "100%", overflow: "hidden" }}
+              className="m-5"
               cover={
                 <div className="h-[180px] overflow-hidden bg-cover justify-center items-center flex w-full">
                   <img
@@ -194,6 +195,7 @@ const Product = () => {
         <UpdateProductForm
           visible={isUpdateProductModalVisible}
           onClose={hideUpdateProductModal}
+         
           product={selectedProduct}
           onUpdate={(updatedProduct) => {
             // Handle the updated product in your state or any other logic

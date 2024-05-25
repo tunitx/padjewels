@@ -2,6 +2,7 @@ import Order from "../models/order.schema.js";
 import asyncHandler from "../services/asyncHandler.js";
 import Product from "../models/product.schema.js";
 import CustomError from "../utils/customError.js";
+import Coupon from "../models/coupon.schema.js";
 import { v4 as uuidv4 } from "uuid";
 import OrderStatus from "../utils/orderStatus.js";
 // import razorpay from "../config/razorpay";
@@ -10,7 +11,7 @@ import User from "../models/user.schema.js";
 
 export const generateOrder = asyncHandler(async (req, res) => {
   // console.log(req.body)
-  const { products, user, address, phoneNumber, paymentOption, amount, firstName, lastName } =
+  const { products, user, address, phoneNumber, paymentOption, amount, firstName, lastName, coupon } =
     req.body;
     console.log(req.body)
     // return;
@@ -48,6 +49,16 @@ export const generateOrder = asyncHandler(async (req, res) => {
     })
   );
   await productPriceCalculation;
+  if (coupon) {
+    const couponFromDb = await Coupon.findOne({ couponName: coupon });
+    if (couponFromDb) {
+      if (couponFromDb.couponType === '%') {
+        totalAmount -= totalAmount * (couponFromDb.cost / 100);
+      } else if (couponFromDb.couponType === 'Rs') {
+        totalAmount -= couponFromDb.cost;
+      }
+    }
+  }
 
   if (paymentOption === "ONLINE") {
     if (!products || !address || !phoneNumber) {

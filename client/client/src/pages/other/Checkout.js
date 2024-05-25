@@ -41,6 +41,7 @@ const Checkout = () => {
     phone: " ",
     email: "",
     orderNotes: "",
+    coupon: "",
   });
 
   const formatFieldName = (fieldName) => {
@@ -51,7 +52,7 @@ const Checkout = () => {
   };
   const validateForm = () => {
     for (let field in billingDetails) {
-      if (field != 'orderNotes' && !billingDetails[field]) {
+      if (field != 'orderNotes'&& field!= 'coupon' && !billingDetails[field]) {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
@@ -111,6 +112,7 @@ const Checkout = () => {
       firstName: billingDetails.firstName,
       lastName: billingDetails.lastName,
       products: cartItems,
+      coupon: coupon,
       user: user.userId,
       address: address,
       phoneNumber: billingDetails.phone,
@@ -132,6 +134,7 @@ const Checkout = () => {
             lastName: billingDetails.lastName,
             products: cartItems,
             user: user.userId,
+            coupon: coupon,
             address: address,
             phoneNumber: billingDetails.phoneNumber,
             paymentOption: "COD",
@@ -528,7 +531,12 @@ const Checkout = () => {
                       <div className="discount-code">
                         <p>Enter your coupon code if you have one.</p>
                         <form onSubmit={handleApplyCoupon}>
-                          <input type="text" required name="name" value={coupon} onChange={e => setCoupon(e.target.value)} />
+                          <input type="text" required name="name" value={coupon} onChange={e => {
+  const value = e.target.value;
+  console.log(value)
+  setCoupon(value);
+  handleInputChange(value);
+}} />
                           <button className="cart-btn-2" type="submit"  disabled={couponApplied}>
                             Apply Coupon
                           </button>

@@ -20,7 +20,7 @@ const NavMenu = ({
       )}
     >
       <nav>
-        <ul>
+        <ul className="flex flex-row space-x-16">
           <li>
             <Link to={process.env.PUBLIC_URL + "/"}>
               {t("home")}

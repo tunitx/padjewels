@@ -6,7 +6,7 @@ import axios from "axios";
 import { UploadOutlined } from "@ant-design/icons";
 import { UPDATE_PRODUCT } from "../constants/Constants";
 
-const UpdateProductForm = ({ visible, onClose, product, onUpdate }) => {
+const UpdateProductForm = ({ visible, onClose, product, onUpdate, onAdd }) => {
   const [form] = Form.useForm();
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const [files, setFiles] = useState([]);
@@ -65,6 +65,7 @@ const UpdateProductForm = ({ visible, onClose, product, onUpdate }) => {
 
       // Handle success, e.g., show a success message
       message.success("Product updated successfully");
+      onAdd();
 
       // Close the modal
       onClose();
@@ -188,12 +189,19 @@ const UpdateProductForm = ({ visible, onClose, product, onUpdate }) => {
         >
           <Input />
         </Form.Item>
-        {product.photos.map((photo, index) => (
-          <div key={index}>
-            <Image className="w-64 h-64 object-cover" src={photo.secure_url} />
-            <Button className="relative bottom-4 left-4"  onClick={() => handleDeletePhoto(photo)}>Delete</Button>
-          </div>
-        ))}
+        <Image.PreviewGroup>
+  {product.photos.map((photo, index) => (
+    <div key={index} className="flex items-center justify-center">
+      <div className="flex flex-col justify-center items-center">
+      <div className="flex items-center justify-center">
+      <Image className="w-64 h-64  object-cover" src={photo.secure_url} />
+      </div>
+       
+        <Button className="relative bottom-4 left-4" onClick={() => handleDeletePhoto(photo)}>Delete</Button>
+      </div>
+    </div>
+  ))}
+</Image.PreviewGroup>
         <Form.Item
           label="Product Thumbnail Image"
           name="productThumbnail"
